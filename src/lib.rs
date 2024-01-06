@@ -66,6 +66,11 @@ impl HtmlElement {
         self
     }
 
+    /// Returns a mutable reference to the rendered text for this element.
+    pub fn text_content_mut(&mut self) -> &mut Option<String> {
+        &mut self.content
+    }
+
     /// Renders this element to an HTML string.
     pub fn render_to_string(&self) -> Result<String, std::fmt::Error> {
         let mut html = String::new();
