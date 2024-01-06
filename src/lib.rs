@@ -66,18 +66,6 @@ impl HtmlElement {
         self
     }
 
-    /// Adds a new child element to this element.
-    pub fn child(mut self, child: HtmlElement) -> Self {
-        self.children.push(child);
-        self
-    }
-
-    /// Adds the specified child elements to this element.
-    pub fn children(mut self, children: impl IntoIterator<Item = HtmlElement>) -> Self {
-        self.children.extend(children);
-        self
-    }
-
     /// Renders this element to an HTML string.
     pub fn render_to_string(&self) -> Result<String, std::fmt::Error> {
         let mut html = String::new();
@@ -110,6 +98,37 @@ impl HtmlElement {
         write!(&mut html, "</{}>", self.tag_name)?;
 
         Ok(html)
+    }
+}
+
+/// A trait for elements that can have children.
+pub trait WithChildren {
+    /// Returns a mutable reference to this element's children.
+    fn children_mut(&mut self) -> &mut Vec<HtmlElement>;
+
+    /// Adds a new child element to this element.
+    fn child(mut self, child: HtmlElement) -> Self
+    where
+        Self: Sized,
+    {
+        self.children_mut().push(child);
+        self
+    }
+
+    /// Adds the specified child elements to this element.
+    fn children(mut self, children: impl IntoIterator<Item = HtmlElement>) -> Self
+    where
+        Self: Sized,
+    {
+        self.children_mut().extend(children);
+        self
+    }
+}
+
+impl WithChildren for HtmlElement {
+    #[inline(always)]
+    fn children_mut(&mut self) -> &mut Vec<HtmlElement> {
+        &mut self.children
     }
 }
 
