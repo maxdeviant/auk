@@ -1,6 +1,6 @@
 [package]
 name = "auk"
-version = "0.1.0"
+version = "0.2.0"
 description = "A DSL for writing HTML using standard Rust syntax."
 repository = "https://github.com/maxdeviant/auk"
 documentation = "https://docs.rs/auk"
