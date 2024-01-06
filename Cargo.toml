@@ -1,0 +1,14 @@
+[package]
+name = "auk"
+version = "0.1.0"
+description = "A DSL for writing HTML using standard Rust syntax."
+repository = "https://github.com/maxdeviant/razorbill/tree/main/crates/auk"
+documentation = "https://docs.rs/auk"
+categories = ["template-engine", "web-programming"]
+keywords = ["html", "dsl", "markup", "template"]
+authors = ["Marshall Bowers <elliott.codes@gmail.com>"]
+license = "MIT"
+edition = "2021"
+
+[dependencies]
+indexmap = "2.1.0"
