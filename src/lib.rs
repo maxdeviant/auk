@@ -1,4 +1,5 @@
 #![doc = include_str!("../README.md")]
+#![deny(missing_docs)]
 
 use std::fmt::Write;
 
@@ -140,6 +141,7 @@ impl WithChildren for HtmlElement {
 macro_rules! create_attribute_methods {
     ($($name:ident),*) => {
         $(
+            #[doc = concat!("Sets the `", stringify!($name), "` attribute to the provided value.")]
             pub fn $name<V>(self, value: impl Into<Option<V>>) -> Self
             where
                 V: Into<String>,
@@ -156,6 +158,7 @@ impl HtmlElement {
         tabindex, title, translate
     );
 
+    /// Sets the `async` attribute to the provided value.
     pub fn async_<V>(self, value: impl Into<Option<V>>) -> Self
     where
         V: Into<String>,
@@ -163,6 +166,7 @@ impl HtmlElement {
         self.attr("async", value)
     }
 
+    /// Sets the `http-equiv` attribute to the provided value.
     pub fn http_equiv<V>(self, value: impl Into<Option<V>>) -> Self
     where
         V: Into<String>,
