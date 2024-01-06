@@ -174,6 +174,7 @@ impl HtmlElement {
 macro_rules! html_elements {
     ($($name:ident),*) => {
         $(
+            #[doc = concat!("[`<", stringify!($name), ">`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/", stringify!($name), ")")]
             pub fn $name() -> HtmlElement {
                 HtmlElement::new(stringify!($name))
             }
