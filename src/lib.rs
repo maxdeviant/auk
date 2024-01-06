@@ -4,21 +4,30 @@ use std::fmt::Write;
 
 use indexmap::IndexMap;
 
+/// An HTML element.
 #[derive(Debug)]
 pub struct HtmlElement {
-    pub tag_name: String,
-    pub content: Option<String>,
-    pub children: Vec<HtmlElement>,
-    pub attrs: IndexMap<String, String>,
+    /// The tag name for this element.
+    tag_name: String,
+
+    /// The attributes of this element.
+    attrs: IndexMap<String, String>,
+
+    /// The rendered text content of this element.
+    content: Option<String>,
+
+    /// The child nodes of this element.
+    children: Vec<HtmlElement>,
 }
 
 impl HtmlElement {
+    /// Returns a new [`HtmlElement`] with the given tag name.
     pub fn new(tag: impl Into<String>) -> Self {
         Self {
             tag_name: tag.into(),
+            attrs: IndexMap::new(),
             content: None,
             children: Vec::new(),
-            attrs: IndexMap::new(),
         }
     }
 
@@ -31,6 +40,9 @@ impl HtmlElement {
         }
     }
 
+    /// Sets the specified attribute on this element.
+    ///
+    /// Will overwrite the existing value for the attribute, if one exists.
     fn attr<V>(mut self, name: impl Into<String>, value: impl Into<Option<V>>) -> Self
     where
         V: Into<String>,
@@ -48,21 +60,25 @@ impl HtmlElement {
         self
     }
 
+    /// Sets the rendered text for this element.
     pub fn text_content(mut self, content: impl Into<String>) -> Self {
         self.content = Some(content.into());
         self
     }
 
+    /// Adds a new child element to this element.
     pub fn child(mut self, child: HtmlElement) -> Self {
         self.children.push(child);
         self
     }
 
+    /// Adds the specified child elements to this element.
     pub fn children(mut self, children: impl IntoIterator<Item = HtmlElement>) -> Self {
         self.children.extend(children);
         self
     }
 
+    /// Renders this element to an HTML string.
     pub fn render_to_string(&self) -> Result<String, std::fmt::Error> {
         let mut html = String::new();
 
@@ -157,22 +173,33 @@ mod tests {
     use super::*;
 
     #[test]
-    fn it_works() {
-        let element = div()
-            .class("container")
-            .child(h1().class("heading").text_content("Hello, world!"));
+    fn test_new_html_element() {
+        let element = HtmlElement::new("custom");
 
-        dbg!(element);
+        assert_eq!(element.tag_name, "custom".to_owned());
     }
 
     #[test]
-    fn test_render() {
+    fn test_attributes() {
+        let element = a().attr("foo", "a").attr("bar", "b");
+
+        assert_eq!(element.attrs.get("foo"), Some(&"a".to_string()));
+        assert_eq!(element.attrs.get("bar"), Some(&"b".to_string()));
+    }
+
+    #[test]
+    fn test_render_to_string() {
         let element = div().class("outer").child(
             div()
                 .class("inner")
                 .child(h1().class("heading").text_content("Hello, world!")),
         );
 
-        dbg!(element.render_to_string().unwrap());
+        insta::assert_yaml_snapshot!(element.render_to_string().unwrap());
+    }
+
+    #[test]
+    fn test_doctype_auto_insertion() {
+        insta::assert_yaml_snapshot!(html().render_to_string().unwrap());
     }
 }

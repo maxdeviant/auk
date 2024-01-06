@@ -1,0 +1,6 @@
+---
+source: src/lib.rs
+expression: element.render_to_string().unwrap()
+---
+"<div class=\"outer\"><div class=\"inner\"><h1 class=\"heading\">Hello, world!</h1></div></div>"
+
