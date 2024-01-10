@@ -155,7 +155,7 @@ macro_rules! create_attribute_methods {
 impl HtmlElement {
     create_attribute_methods!(
         charset, class, content, defer, href, id, lang, name, rel, role, src, start, style,
-        tabindex, title, translate
+        tabindex, target, title, translate
     );
 
     /// Sets the `async` attribute to the provided value.

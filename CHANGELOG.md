@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added `WithChildren` trait.
 - `HtmlElement`: Added `text_content_mut` method.
 - Added docs for HTML elements.
+- `HtmlElement`: Added new attribute methods:
+  - `target`
 
 ## [0.2.0] - 2024-01-06
 
