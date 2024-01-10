@@ -1,0 +1,6 @@
+---
+source: src/lib.rs
+expression: "p().child(HtmlElement::raw_text(\"This is a \")).child(a().href(\"https://example.com\").text_content(\"link\")).child(HtmlElement::raw_text(\" that you should click on.\")).render_to_string().unwrap()"
+---
+"<p>This is a <a href=\"https://example.com\">link</a> that you should click on.</p>"
+

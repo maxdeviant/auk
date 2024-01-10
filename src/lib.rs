@@ -22,12 +22,25 @@ pub struct HtmlElement {
 }
 
 impl HtmlElement {
+    const RAW_TEXT_TAG: &'static str = "__RAW_TEXT__";
+
     /// Returns a new [`HtmlElement`] with the given tag name.
     pub fn new(tag: impl Into<String>) -> Self {
         Self {
             tag_name: tag.into(),
             attrs: IndexMap::new(),
             content: None,
+            children: Vec::new(),
+        }
+    }
+
+    // TODO: Find a better way of representing raw text without modeling it as an `HtmlElement`.
+    #[doc(hidden)]
+    pub fn unstable_raw_text(text: impl Into<String>) -> Self {
+        Self {
+            tag_name: Self::RAW_TEXT_TAG.into(),
+            attrs: IndexMap::new(),
+            content: Some(text.into()),
             children: Vec::new(),
         }
     }
@@ -75,6 +88,11 @@ impl HtmlElement {
     /// Renders this element to an HTML string.
     pub fn render_to_string(&self) -> Result<String, std::fmt::Error> {
         let mut html = String::new();
+
+        if self.tag_name == Self::RAW_TEXT_TAG {
+            write!(&mut html, "{}", self.content.as_ref().unwrap())?;
+            return Ok(html);
+        }
 
         if self.tag_name == "html" {
             write!(&mut html, "<!DOCTYPE html>")?;
@@ -230,5 +248,15 @@ mod tests {
     #[test]
     fn test_doctype_auto_insertion() {
         insta::assert_yaml_snapshot!(html().render_to_string().unwrap());
+    }
+
+    #[test]
+    fn test_raw_text() {
+        insta::assert_yaml_snapshot!(p()
+            .child(HtmlElement::unstable_raw_text("This is a "))
+            .child(a().href("https://example.com").text_content("link"))
+            .child(HtmlElement::unstable_raw_text(" that you should click on."))
+            .render_to_string()
+            .unwrap())
     }
 }
