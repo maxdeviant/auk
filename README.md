@@ -13,8 +13,8 @@ use auk::*;
 use auk::renderer::HtmlElementRenderer;
 
 let content = html()
-    .child(head().child(title().child(text("Auk"))))
-    .child(body().child(h1().child(text("Hello from Auk!"))));
+    .child(head().child(title().child("Auk")))
+    .child(body().child(h1().child("Hello from Auk!")));
 
 let rendered_html = HtmlElementRenderer::new()
     .render_to_string(&content)

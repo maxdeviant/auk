@@ -16,6 +16,18 @@ impl From<TextElement> for Element {
     }
 }
 
+impl From<String> for Element {
+    fn from(value: String) -> Self {
+        Self::Text(TextElement::new(value))
+    }
+}
+
+impl From<&str> for Element {
+    fn from(value: &str) -> Self {
+        Self::Text(TextElement::new(value))
+    }
+}
+
 impl From<HtmlElement> for Element {
     fn from(value: HtmlElement) -> Self {
         Self::Html(value)

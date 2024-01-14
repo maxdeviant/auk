@@ -109,9 +109,16 @@ pub struct TextElement {
     pub(crate) text: String,
 }
 
+impl TextElement {
+    /// Returns a new [`TextElement`] with the given text.
+    pub fn new(text: impl Into<String>) -> Self {
+        Self { text: text.into() }
+    }
+}
+
 /// Returns a new [`TextElement`] with the given text.
 pub fn text(text: impl Into<String>) -> TextElement {
-    TextElement { text: text.into() }
+    TextElement::new(text)
 }
 
 macro_rules! create_attribute_methods {
@@ -203,7 +210,7 @@ mod tests {
         let element = div().class("outer").child(
             div()
                 .class("inner")
-                .child(h1().class("heading").child(text("Hello, world!"))),
+                .child(h1().class("heading").child("Hello, world!")),
         );
 
         insta::assert_yaml_snapshot!(render_to_string(&element));
@@ -217,9 +224,9 @@ mod tests {
     #[test]
     fn test_raw_text() {
         insta::assert_yaml_snapshot!(render_to_string(
-            &p().child(text("This is a "))
-                .child(a().href("https://example.com").child(text("link")))
-                .child(text(" that you should click on."))
+            &p().child("This is a ")
+                .child(a().href("https://example.com").child("link"))
+                .child(" that you should click on.")
         ))
     }
 }
