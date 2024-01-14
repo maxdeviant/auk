@@ -9,13 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Added `Element` enum.
+- Added `TextElement` struct.
 - Added `WithChildren` trait.
-- `HtmlElement`: Added `text_content_mut` method.
-- Added docs for HTML elements.
 - `HtmlElement`: Added new attribute methods:
   - `max`
   - `target`
   - `value`
+- Added docs for HTML elements.
 - Added `Visitor` trait.
 - Added `MutVisitor` trait.
 - Added `HtmlElementRenderer`.
@@ -23,6 +24,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Deprecated
 
 - Deprecated `HtmlElement::render_to_string` in favor of `HtmlElementRenderer::render_to_string`.
+
+### Removed
+
+- `HtmlElement`: Removed `text_content` method.
 
 ## [0.2.0] - 2024-01-06
 

@@ -1,8 +1,11 @@
 #![doc = include_str!("../README.md")]
 #![deny(missing_docs)]
 
+mod element;
 pub mod renderer;
 pub mod visitor;
+
+pub use element::*;
 
 use indexmap::IndexMap;
 
@@ -17,33 +20,16 @@ pub struct HtmlElement {
     /// The attributes of this element.
     attrs: IndexMap<String, String>,
 
-    /// The rendered text content of this element.
-    content: Option<String>,
-
     /// The child nodes of this element.
-    children: Vec<HtmlElement>,
+    children: Vec<Element>,
 }
 
 impl HtmlElement {
-    const RAW_TEXT_TAG: &'static str = "__RAW_TEXT__";
-
     /// Returns a new [`HtmlElement`] with the given tag name.
     pub fn new(tag: impl Into<String>) -> Self {
         Self {
             tag_name: tag.into(),
             attrs: IndexMap::new(),
-            content: None,
-            children: Vec::new(),
-        }
-    }
-
-    // TODO: Find a better way of representing raw text without modeling it as an `HtmlElement`.
-    #[doc(hidden)]
-    pub fn unstable_raw_text(text: impl Into<String>) -> Self {
-        Self {
-            tag_name: Self::RAW_TEXT_TAG.into(),
-            attrs: IndexMap::new(),
-            content: Some(text.into()),
             children: Vec::new(),
         }
     }
@@ -77,17 +63,6 @@ impl HtmlElement {
         self
     }
 
-    /// Sets the rendered text for this element.
-    pub fn text_content(mut self, content: impl Into<String>) -> Self {
-        self.content = Some(content.into());
-        self
-    }
-
-    /// Returns a mutable reference to the rendered text for this element.
-    pub fn text_content_mut(&mut self) -> &mut Option<String> {
-        &mut self.content
-    }
-
     /// Renders this element to an HTML string.
     #[deprecated(note = "Use `HtmlElementRenderer` directly.")]
     pub fn render_to_string(&self) -> Result<String, std::fmt::Error> {
@@ -98,32 +73,45 @@ impl HtmlElement {
 /// A trait for elements that can have children.
 pub trait WithChildren {
     /// Returns a mutable reference to this element's children.
-    fn children_mut(&mut self) -> &mut Vec<HtmlElement>;
+    fn children_mut(&mut self) -> &mut Vec<Element>;
 
     /// Adds a new child element to this element.
-    fn child(mut self, child: HtmlElement) -> Self
+    fn child(mut self, child: impl Into<Element>) -> Self
     where
         Self: Sized,
     {
-        self.children_mut().push(child);
+        self.children_mut().push(child.into());
         self
     }
 
     /// Adds the specified child elements to this element.
-    fn children(mut self, children: impl IntoIterator<Item = HtmlElement>) -> Self
+    fn children(mut self, children: impl IntoIterator<Item = impl Into<Element>>) -> Self
     where
         Self: Sized,
     {
-        self.children_mut().extend(children);
+        self.children_mut()
+            .extend(children.into_iter().map(Into::into));
         self
     }
 }
 
 impl WithChildren for HtmlElement {
     #[inline(always)]
-    fn children_mut(&mut self) -> &mut Vec<HtmlElement> {
+    fn children_mut(&mut self) -> &mut Vec<Element> {
         &mut self.children
     }
+}
+
+/// A text element.
+#[derive(Debug)]
+pub struct TextElement {
+    /// The text content of this element.
+    pub(crate) text: String,
+}
+
+/// Returns a new [`TextElement`] with the given text.
+pub fn text(text: impl Into<String>) -> TextElement {
+    TextElement { text: text.into() }
 }
 
 macro_rules! create_attribute_methods {
@@ -215,7 +203,7 @@ mod tests {
         let element = div().class("outer").child(
             div()
                 .class("inner")
-                .child(h1().class("heading").text_content("Hello, world!")),
+                .child(h1().class("heading").child(text("Hello, world!"))),
         );
 
         insta::assert_yaml_snapshot!(render_to_string(&element));
@@ -229,9 +217,9 @@ mod tests {
     #[test]
     fn test_raw_text() {
         insta::assert_yaml_snapshot!(render_to_string(
-            &p().child(HtmlElement::unstable_raw_text("This is a "))
-                .child(a().href("https://example.com").text_content("link"))
-                .child(HtmlElement::unstable_raw_text(" that you should click on."))
+            &p().child(text("This is a "))
+                .child(a().href("https://example.com").child(text("link")))
+                .child(text(" that you should click on."))
         ))
     }
 }

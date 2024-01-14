@@ -30,11 +30,6 @@ impl Visitor for HtmlElementRenderer {
     type Error = std::fmt::Error;
 
     fn visit(&mut self, element: &HtmlElement) -> Result<(), Self::Error> {
-        if element.tag_name == HtmlElement::RAW_TEXT_TAG {
-            write!(&mut self.html, "{}", element.content.as_ref().unwrap())?;
-            return Ok(());
-        }
-
         if element.tag_name == "html" {
             write!(&mut self.html, "<!DOCTYPE html>")?;
         }
@@ -51,13 +46,15 @@ impl Visitor for HtmlElementRenderer {
             return Ok(());
         }
 
-        if let Some(content) = &element.content {
-            write!(&mut self.html, "{}", content)?;
-        }
-
         self.visit_children(&element.children)?;
 
         write!(&mut self.html, "</{}>", element.tag_name)?;
+
+        Ok(())
+    }
+
+    fn visit_text(&mut self, text: &str) -> Result<(), Self::Error> {
+        write!(&mut self.html, "{}", text)?;
 
         Ok(())
     }

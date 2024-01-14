@@ -1,6 +1,6 @@
 //! Constructs for traversing and manipulating trees of [`HtmlElement`]s.
 
-use crate::HtmlElement;
+use crate::{Element, HtmlElement, TextElement};
 
 /// A visitor for [`HtmlElement`]s.
 pub trait Visitor: Sized {
@@ -12,13 +12,18 @@ pub trait Visitor: Sized {
         walk_element(self, element)
     }
 
+    /// Visits the given text.
+    fn visit_text(&mut self, _text: &str) -> Result<(), Self::Error> {
+        Ok(())
+    }
+
     /// Visits the given attribute.
     fn visit_attr(&mut self, _name: &str, _value: &str) -> Result<(), Self::Error> {
         Ok(())
     }
 
-    /// Visit the children of an [`HtmlElement`].
-    fn visit_children(&mut self, children: &[HtmlElement]) -> Result<(), Self::Error> {
+    /// Visits the children of an [`HtmlElement`].
+    fn visit_children(&mut self, children: &[Element]) -> Result<(), Self::Error> {
         walk_children(self, children)
     }
 }
@@ -35,12 +40,12 @@ pub fn walk_element<V: Visitor>(visitor: &mut V, element: &HtmlElement) -> Resul
 }
 
 /// Walks the given children.
-pub fn walk_children<V: Visitor>(
-    visitor: &mut V,
-    children: &[HtmlElement],
-) -> Result<(), V::Error> {
+pub fn walk_children<V: Visitor>(visitor: &mut V, children: &[Element]) -> Result<(), V::Error> {
     for child in children {
-        visitor.visit(child)?;
+        match child {
+            Element::Html(element) => visitor.visit(element)?,
+            Element::Text(TextElement { text }) => visitor.visit_text(text)?,
+        }
     }
 
     Ok(())
@@ -56,13 +61,18 @@ pub trait MutVisitor: Sized {
         noop_visit_element(self, element)
     }
 
+    /// Visits the given text.
+    fn visit_text(&mut self, _text: &mut String) -> Result<(), Self::Error> {
+        Ok(())
+    }
+
     /// Visits the given attribute.
     fn visit_attr(&mut self, _name: &str, _value: &mut String) -> Result<(), Self::Error> {
         Ok(())
     }
 
     /// Visit the children of an [`HtmlElement`].
-    fn visit_children(&mut self, children: &mut [HtmlElement]) -> Result<(), Self::Error> {
+    fn visit_children(&mut self, children: &mut [Element]) -> Result<(), Self::Error> {
         noop_visit_children(self, children)
     }
 }
@@ -84,10 +94,13 @@ pub fn noop_visit_element<V: MutVisitor>(
 /// Walks the given children without mutating it..
 pub fn noop_visit_children<V: MutVisitor>(
     visitor: &mut V,
-    children: &mut [HtmlElement],
+    children: &mut [Element],
 ) -> Result<(), V::Error> {
     for child in children {
-        visitor.visit(child)?;
+        match child {
+            Element::Html(element) => visitor.visit(element)?,
+            Element::Text(TextElement { text }) => visitor.visit_text(text)?,
+        }
     }
 
     Ok(())
