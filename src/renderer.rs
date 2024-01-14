@@ -41,13 +41,9 @@ impl Visitor for HtmlElementRenderer {
 
         write!(&mut self.html, "<{}", element.tag_name)?;
 
-        self.visit_attrs(
-            &element
-                .attrs
-                .iter()
-                .map(|(name, value)| (name.as_str(), value.as_str()))
-                .collect::<Vec<_>>(),
-        )?;
+        for (name, value) in &element.attrs {
+            self.visit_attr(name, value)?;
+        }
 
         write!(&mut self.html, ">")?;
 
