@@ -1,9 +1,12 @@
 #![doc = include_str!("../README.md")]
 #![deny(missing_docs)]
 
-use std::fmt::Write;
+pub mod renderer;
+pub mod visitor;
 
 use indexmap::IndexMap;
+
+use crate::renderer::HtmlElementRenderer;
 
 /// An HTML element.
 #[derive(Debug)]
@@ -86,42 +89,9 @@ impl HtmlElement {
     }
 
     /// Renders this element to an HTML string.
+    #[deprecated(note = "Use `HtmlElementRenderer` directly.")]
     pub fn render_to_string(&self) -> Result<String, std::fmt::Error> {
-        let mut html = String::new();
-
-        if self.tag_name == Self::RAW_TEXT_TAG {
-            write!(&mut html, "{}", self.content.as_ref().unwrap())?;
-            return Ok(html);
-        }
-
-        if self.tag_name == "html" {
-            write!(&mut html, "<!DOCTYPE html>")?;
-        }
-
-        write!(&mut html, "<{}", self.tag_name)?;
-
-        for (name, value) in &self.attrs {
-            write!(&mut html, " ")?;
-            write!(&mut html, r#"{name}="{value}""#)?;
-        }
-
-        write!(&mut html, ">")?;
-
-        if self.is_void() {
-            return Ok(html);
-        }
-
-        if let Some(content) = &self.content {
-            write!(&mut html, "{}", content)?;
-        }
-
-        for child in &self.children {
-            write!(&mut html, "{}", child.render_to_string()?)?;
-        }
-
-        write!(&mut html, "</{}>", self.tag_name)?;
-
-        Ok(html)
+        HtmlElementRenderer::new().render_to_string(self)
     }
 }
 
@@ -219,6 +189,12 @@ html_elements!(
 mod tests {
     use super::*;
 
+    fn render_to_string(element: &HtmlElement) -> String {
+        HtmlElementRenderer::new()
+            .render_to_string(element)
+            .unwrap()
+    }
+
     #[test]
     fn test_new_html_element() {
         let element = HtmlElement::new("custom");
@@ -242,21 +218,20 @@ mod tests {
                 .child(h1().class("heading").text_content("Hello, world!")),
         );
 
-        insta::assert_yaml_snapshot!(element.render_to_string().unwrap());
+        insta::assert_yaml_snapshot!(render_to_string(&element));
     }
 
     #[test]
     fn test_doctype_auto_insertion() {
-        insta::assert_yaml_snapshot!(html().render_to_string().unwrap());
+        insta::assert_yaml_snapshot!(render_to_string(&html()));
     }
 
     #[test]
     fn test_raw_text() {
-        insta::assert_yaml_snapshot!(p()
-            .child(HtmlElement::unstable_raw_text("This is a "))
-            .child(a().href("https://example.com").text_content("link"))
-            .child(HtmlElement::unstable_raw_text(" that you should click on."))
-            .render_to_string()
-            .unwrap())
+        insta::assert_yaml_snapshot!(render_to_string(
+            &p().child(HtmlElement::unstable_raw_text("This is a "))
+                .child(a().href("https://example.com").text_content("link"))
+                .child(HtmlElement::unstable_raw_text(" that you should click on."))
+        ))
     }
 }

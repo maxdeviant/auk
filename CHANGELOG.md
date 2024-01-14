@@ -16,6 +16,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `max`
   - `target`
   - `value`
+- Added `Visitor` trait.
+- Added `HtmlElementRenderer`.
+
+### Deprecated
+
+- Deprecated `HtmlElement::render_to_string` in favor of `HtmlElementRenderer::render_to_string`.
 
 ## [0.2.0] - 2024-01-06
 
