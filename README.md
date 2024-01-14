@@ -10,10 +10,12 @@ Auk is a <abbr title="domain-specific language">DSL</abbr> for writing HTML usin
 
 ```rust
 use auk::*;
+use auk::renderer::HtmlElementRenderer;
 
 let content = html()
     .child(head().child(title().text_content("Auk")))
     .child(body().child(h1().text_content("Hello from Auk!")));
 
-let rendered_html = content.render_to_string().unwrap();
+let rendered_html = HtmlElementRenderer::new()
+    .render_to_string(&content).unwrap();
 ```
