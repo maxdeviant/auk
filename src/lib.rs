@@ -9,8 +9,6 @@ pub use element::*;
 
 use indexmap::IndexMap;
 
-use crate::renderer::HtmlElementRenderer;
-
 /// An HTML element.
 #[derive(Debug)]
 pub struct HtmlElement {
@@ -61,12 +59,6 @@ impl HtmlElement {
         }
 
         self
-    }
-
-    /// Renders this element to an HTML string.
-    #[deprecated(note = "Use `HtmlElementRenderer` directly.")]
-    pub fn render_to_string(&self) -> Result<String, std::fmt::Error> {
-        HtmlElementRenderer::new().render_to_string(self)
     }
 }
 
@@ -182,6 +174,8 @@ html_elements!(
 
 #[cfg(test)]
 mod tests {
+    use crate::renderer::HtmlElementRenderer;
+
     use super::*;
 
     fn render_to_string(element: &HtmlElement) -> String {

@@ -21,13 +21,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added `MutVisitor` trait.
 - Added `HtmlElementRenderer`.
 
-### Deprecated
-
-- Deprecated `HtmlElement::render_to_string` in favor of `HtmlElementRenderer::render_to_string`.
-
 ### Removed
 
-- `HtmlElement`: Removed `text_content` method.
+- `HtmlElement`: Removed `text_content` method in favor of `child`.
+- `HtmlElement`: Removed `render_to_string` method in favor of `HtmlElementRenderer::render_to_string`.
 
 ## [0.2.0] - 2024-01-06
 

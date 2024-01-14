@@ -110,6 +110,7 @@ pub fn noop_visit_children<V: MutVisitor>(
 mod tests {
     use insta::assert_yaml_snapshot;
 
+    use crate::renderer::HtmlElementRenderer;
     use crate::*;
 
     use super::*;
