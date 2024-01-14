@@ -1,0 +1,6 @@
+---
+source: src/visitor.rs
+expression: "HtmlElementRenderer::new().render_to_string(&element).unwrap()"
+---
+"<!DOCTYPE html><html><head><title></title></head><body><ul><li><a href=\"https://example.com/home\"></a></li><li><a href=\"https://example.com/features\"></a></li><li><a href=\"https://example.com/about\"></a></li></ul></body></html>"
+

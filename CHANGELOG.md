@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `target`
   - `value`
 - Added `Visitor` trait.
+- Added `MutVisitor` trait.
 - Added `HtmlElementRenderer`.
 
 ### Deprecated
