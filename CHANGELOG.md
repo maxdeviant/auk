@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `HtmlElement`: Added new attribute methods:
+  - `loading`
+
 ## [0.3.0] - 2024-01-13
 
 ### Added
