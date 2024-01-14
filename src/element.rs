@@ -16,14 +16,8 @@ impl From<TextElement> for Element {
     }
 }
 
-impl From<String> for Element {
-    fn from(value: String) -> Self {
-        Self::Text(TextElement::new(value))
-    }
-}
-
-impl From<&str> for Element {
-    fn from(value: &str) -> Self {
+impl<T: Into<String>> From<T> for Element {
+    fn from(value: T) -> Self {
         Self::Text(TextElement::new(value))
     }
 }
