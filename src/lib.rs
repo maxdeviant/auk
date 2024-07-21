@@ -130,8 +130,27 @@ macro_rules! create_attribute_methods {
 
 impl HtmlElement {
     create_attribute_methods!(
-        charset, class, content, defer, href, id, lang, loading, max, name, rel, role, src, start,
-        style, tabindex, target, title, translate, value
+        charset,
+        class,
+        content,
+        crossorigin,
+        defer,
+        href,
+        id,
+        lang,
+        loading,
+        max,
+        name,
+        rel,
+        role,
+        src,
+        start,
+        style,
+        tabindex,
+        target,
+        title,
+        translate,
+        value
     );
 
     /// Sets the `async` attribute to the provided value.
@@ -222,6 +241,16 @@ mod tests {
             &p().child("This is a ")
                 .child(a().href("https://example.com").child("link"))
                 .child(" that you should click on.")
+        ))
+    }
+
+    #[test]
+    fn test_crossorigin_attr() {
+        insta::assert_yaml_snapshot!(render_to_string(
+            &link()
+                .rel("preconnect")
+                .href("https://fonts.gstatic.com")
+                .crossorigin("")
         ))
     }
 }
