@@ -5,9 +5,11 @@ mod element;
 pub mod renderer;
 pub mod visitor;
 
-pub use element::*;
+use std::iter;
 
 use indexmap::IndexMap;
+
+pub use crate::element::*;
 
 /// An HTML element.
 #[derive(Debug)]
@@ -64,15 +66,15 @@ impl HtmlElement {
 
 /// A trait for elements that can have children.
 pub trait WithChildren {
-    /// Returns a mutable reference to this element's children.
-    fn children_mut(&mut self) -> &mut Vec<Element>;
+    /// Extends this element's children with the given children.
+    fn extend(&mut self, children: impl IntoIterator<Item = Element>);
 
     /// Adds a new child element to this element.
     fn child(mut self, child: impl Into<Element>) -> Self
     where
         Self: Sized,
     {
-        self.children_mut().push(child.into());
+        self.extend(iter::once(child.into()));
         self
     }
 
@@ -81,16 +83,15 @@ pub trait WithChildren {
     where
         Self: Sized,
     {
-        self.children_mut()
-            .extend(children.into_iter().map(Into::into));
+        self.extend(children.into_iter().map(Into::into));
         self
     }
 }
 
 impl WithChildren for HtmlElement {
     #[inline(always)]
-    fn children_mut(&mut self) -> &mut Vec<Element> {
-        &mut self.children
+    fn extend(&mut self, children: impl IntoIterator<Item = Element>) {
+        self.children.extend(children)
     }
 }
 
