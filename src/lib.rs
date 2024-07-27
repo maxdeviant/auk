@@ -107,6 +107,11 @@ impl TextElement {
     pub fn new(text: impl Into<String>) -> Self {
         Self { text: text.into() }
     }
+
+    /// Returns the text of this [`TextElement`].
+    pub fn text(&self) -> &str {
+        &self.text
+    }
 }
 
 /// Returns a new [`TextElement`] with the given text.
