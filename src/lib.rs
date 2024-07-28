@@ -135,6 +135,7 @@ macro_rules! create_attribute_methods {
 
 impl HtmlElement {
     create_attribute_methods!(
+        alt,
         charset,
         class,
         content,
