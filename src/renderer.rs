@@ -61,7 +61,11 @@ impl Visitor for HtmlElementRenderer {
 
     fn visit_attr(&mut self, name: &str, value: &str) -> Result<(), Self::Error> {
         write!(&mut self.html, " ")?;
-        write!(&mut self.html, r#"{name}="{value}""#)?;
+        write!(&mut self.html, "{name}")?;
+
+        if !value.is_empty() {
+            write!(&mut self.html, r#"="{value}""#)?;
+        }
 
         Ok(())
     }

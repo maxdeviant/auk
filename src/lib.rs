@@ -246,6 +246,17 @@ mod tests {
     }
 
     #[test]
+    fn test_empty_attributes() {
+        insta::assert_yaml_snapshot!(render_to_string(
+            &script()
+                .async_("")
+                .defer("")
+                .attr("data-domain", "example.com")
+                .src("https://plausible.io/js/plausible.js"),
+        ));
+    }
+
+    #[test]
     fn test_crossorigin_attr() {
         insta::assert_yaml_snapshot!(render_to_string(
             &link()
