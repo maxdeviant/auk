@@ -21,7 +21,8 @@ pub struct HtmlElement {
     attrs: IndexMap<String, String>,
 
     /// The child nodes of this element.
-    children: Vec<Element>,
+    #[doc(hidden)]
+    pub children: Vec<Element>,
 }
 
 impl HtmlElement {
