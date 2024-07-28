@@ -15,13 +15,12 @@ pub use crate::element::*;
 #[derive(Debug)]
 pub struct HtmlElement {
     /// The tag name for this element.
-    tag_name: String,
+    pub tag_name: String,
 
     /// The attributes of this element.
-    attrs: IndexMap<String, String>,
+    pub attrs: IndexMap<String, String>,
 
     /// The child nodes of this element.
-    #[doc(hidden)]
     pub children: Vec<Element>,
 }
 
@@ -100,18 +99,13 @@ impl WithChildren for HtmlElement {
 #[derive(Debug)]
 pub struct TextElement {
     /// The text content of this element.
-    pub(crate) text: String,
+    pub text: String,
 }
 
 impl TextElement {
     /// Returns a new [`TextElement`] with the given text.
     pub fn new(text: impl Into<String>) -> Self {
         Self { text: text.into() }
-    }
-
-    /// Returns the text of this [`TextElement`].
-    pub fn text(&self) -> &str {
-        &self.text
     }
 }
 
