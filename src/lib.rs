@@ -46,7 +46,7 @@ impl HtmlElement {
     /// Sets the specified attribute on this element.
     ///
     /// Will overwrite the existing value for the attribute, if one exists.
-    fn attr<V>(mut self, name: impl Into<String>, value: impl Into<Option<V>>) -> Self
+    pub fn attr<V>(mut self, name: impl Into<String>, value: impl Into<Option<V>>) -> Self
     where
         V: Into<String>,
     {
