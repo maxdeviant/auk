@@ -1,7 +1,7 @@
 use crate::{HtmlElement, TextElement};
 
 /// A DOM element.
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub enum Element {
     /// A text element.
     Text(TextElement),

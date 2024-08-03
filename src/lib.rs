@@ -12,7 +12,7 @@ use indexmap::IndexMap;
 pub use crate::element::*;
 
 /// An HTML element.
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct HtmlElement {
     /// The tag name for this element.
     pub tag_name: String,
@@ -110,7 +110,7 @@ impl WithChildren for HtmlElement {
 }
 
 /// A text element.
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct TextElement {
     /// The text content of this element.
     pub text: String,
