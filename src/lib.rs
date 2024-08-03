@@ -64,6 +64,20 @@ impl HtmlElement {
     }
 }
 
+/// A trait for elements that can be modified.
+pub trait With {
+    /// Applies the given closure to modify the element and return a new copy.
+    #[inline(always)]
+    fn with(self, f: impl FnOnce(Self) -> Self) -> Self
+    where
+        Self: Sized,
+    {
+        f(self)
+    }
+}
+
+impl With for HtmlElement {}
+
 /// A trait for elements that can have children.
 pub trait WithChildren {
     /// Extends this element's children with the given children.
