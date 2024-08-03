@@ -18,6 +18,11 @@ impl HtmlElementRenderer {
         }
     }
 
+    /// Returns the rendered HTML.
+    pub fn html(&self) -> &str {
+        &self.html
+    }
+
     /// Renders the given [`HtmlElement`] to a string of HTML.
     pub fn render_to_string(mut self, element: &HtmlElement) -> Result<String, std::fmt::Error> {
         self.visit(element)?;
