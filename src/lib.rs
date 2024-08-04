@@ -203,8 +203,8 @@ html_elements!(
     hgroup, hr, html, i, iframe, img, input, ins, kbd, label, legend, li, link, main, map, mark,
     math, menu, meta, meter, nav, noscript, object, ol, optgroup, option, output, p, picture,
     portal, pre, progress, q, rp, rt, ruby, s, samp, script, search, section, select, small,
-    source, span, strong, style, sub, sup, svg, table, td, textarea, tfoot, th, thead, time, title,
-    tr, track, u, ul, var, video, wbr, details, dialog, summary, slot, template
+    source, span, strong, style, sub, sup, svg, table, tbody, td, textarea, tfoot, th, thead, time,
+    title, tr, track, u, ul, var, video, wbr, details, dialog, summary, slot, template
 );
 
 #[cfg(test)]
