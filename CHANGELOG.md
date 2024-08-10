@@ -9,8 +9,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Added `With` trait.
+- Added `tbody` element.
 - `HtmlElement`: Added new attribute methods:
+  - `alt`
+  - `crossorigin`
   - `loading`
+- `HtmlElementRenderer`: Added `html` getter.
+- `Element`, `HtmlElement`, and `TextElement` now implement `Clone`.
+
+### Changed
+
+- `HtmlElement`: Made fields `pub`.
+- `HtmlElement`: Made `attr` method `pub`.
+- `HtmlElement`: Made `is_void` method `pub`.
+- `TextElement`: Made fields `pub`.
+- `WithChildren`: Replaced `children_mut` with `extend`.
+- `HtmlElementRenderer`: `render_to_string` now omits empty attributes.
 
 ## [0.3.0] - 2024-01-13
 
