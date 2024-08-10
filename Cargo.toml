@@ -1,7 +1,7 @@
 [package]
 name = "auk"
 version = "0.3.0"
-description = "A DSL for writing HTML using standard Rust syntax."
+description = "An eDSL for writing HTML using standard Rust syntax."
 repository = "https://github.com/maxdeviant/auk"
 documentation = "https://docs.rs/auk"
 categories = ["template-engine", "web-programming"]
