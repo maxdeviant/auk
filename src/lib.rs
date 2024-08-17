@@ -123,11 +123,6 @@ impl TextElement {
     }
 }
 
-/// Returns a new [`TextElement`] with the given text.
-pub fn text(text: impl Into<String>) -> TextElement {
-    TextElement::new(text)
-}
-
 macro_rules! create_attribute_methods {
     ($($name:ident),*) => {
         $(
