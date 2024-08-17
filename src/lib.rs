@@ -176,12 +176,28 @@ impl HtmlElement {
         self.attr("async", value)
     }
 
+    /// Sets the `for` attribute to the provided value.
+    pub fn for_<V>(self, value: impl Into<Option<V>>) -> Self
+    where
+        V: Into<String>,
+    {
+        self.attr("for", value)
+    }
+
     /// Sets the `http-equiv` attribute to the provided value.
     pub fn http_equiv<V>(self, value: impl Into<Option<V>>) -> Self
     where
         V: Into<String>,
     {
         self.attr("http-equiv", value)
+    }
+
+    /// Sets the `type` attribute to the provided value.
+    pub fn type_<V>(self, value: impl Into<Option<V>>) -> Self
+    where
+        V: Into<String>,
+    {
+        self.attr("type", value)
     }
 }
 
