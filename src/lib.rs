@@ -123,6 +123,12 @@ impl TextElement {
     }
 }
 
+impl<T: Into<String>> From<T> for TextElement {
+    fn from(value: T) -> Self {
+        Self::new(value)
+    }
+}
+
 macro_rules! create_attribute_methods {
     ($($name:ident),*) => {
         $(

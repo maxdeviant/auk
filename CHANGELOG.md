@@ -12,11 +12,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `HtmlElement`: Added new attribute methods:
   - `for_`
   - `type_`
+- Added a blanket implementation for converting any `T: Into<HtmlElement>` into an `Element`.
+- Added `From` implementations for the following string types to `Element`:
+  - `From<String> for Element`
+  - `From<&String> for Element`
+  - `From<&str> for Element`
 
 ### Removed
 
 - Removed `text` function for construction `TextElement`s.
   - Use `TextElement::new` instead.
+- Removed blanket implementation for converting any `T: Into<String>` into an `Element`.
 
 ## [0.4.0] - 2024-08-10
 
