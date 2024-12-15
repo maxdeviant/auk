@@ -145,18 +145,23 @@ macro_rules! create_attribute_methods {
 
 impl HtmlElement {
     create_attribute_methods!(
+        action,
         alt,
         charset,
+        checked,
         class,
         content,
         crossorigin,
         defer,
         href,
         id,
+        integrity,
         lang,
         loading,
         max,
+        method,
         name,
+        placeholder,
         rel,
         role,
         src,

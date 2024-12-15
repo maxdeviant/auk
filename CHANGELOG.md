@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `HtmlElementRenderer` will now perform escaping to protect against XSS.
   - Previously this was left up to the consumer to handle.
+- `HtmlElement`: Added new attribute methods:
+  - `action`
+  - `checked`
+  - `integrity`
+  - `method`
+  - `placeholder`
 
 ## [0.5.0] - 2024-08-17
 
