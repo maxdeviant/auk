@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `HtmlElementRenderer` will now perform escaping to protect against XSS.
+  - Previously this was left up to the consumer to handle.
+
 ## [0.5.0] - 2024-08-17
 
 ### Added

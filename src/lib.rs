@@ -296,4 +296,19 @@ mod tests {
                 .crossorigin("")
         ))
     }
+
+    #[test]
+    fn test_escape_html_in_body_text() {
+        insta::assert_yaml_snapshot!(render_to_string(
+            &p().child("This is an <script>alert('XSS');</script> attempt")
+        ));
+    }
+
+    #[test]
+    fn test_escape_html_in_attributes() {
+        insta::assert_yaml_snapshot!(render_to_string(
+            &a().href("https://example.com?param=\"><script>alert('XSS');</script>")
+                .child("Click me")
+        ));
+    }
 }

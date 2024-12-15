@@ -1,0 +1,6 @@
+---
+source: src/lib.rs
+expression: "render_to_string(&p().child(\"This is an <script>alert('XSS');</script> attempt\"))"
+---
+"<p>This is an &lt;script&gt;alert('XSS');&lt;/script&gt; attempt</p>"
+

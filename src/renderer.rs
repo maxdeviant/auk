@@ -2,6 +2,8 @@
 
 use std::fmt::Write;
 
+use pulldown_cmark_escape::{escape_html, escape_html_body_text};
+
 use crate::visitor::Visitor;
 use crate::HtmlElement;
 
@@ -59,7 +61,7 @@ impl Visitor for HtmlElementRenderer {
     }
 
     fn visit_text(&mut self, text: &str) -> Result<(), Self::Error> {
-        write!(&mut self.html, "{}", text)?;
+        escape_html_body_text(&mut self.html, text)?;
 
         Ok(())
     }
@@ -69,7 +71,10 @@ impl Visitor for HtmlElementRenderer {
         write!(&mut self.html, "{name}")?;
 
         if !value.is_empty() {
-            write!(&mut self.html, r#"="{value}""#)?;
+            write!(&mut self.html, "=")?;
+            write!(&mut self.html, "\"")?;
+            escape_html(&mut self.html, value)?;
+            write!(&mut self.html, "\"")?;
         }
 
         Ok(())

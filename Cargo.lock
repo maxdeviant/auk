@@ -8,6 +8,7 @@ version = "0.5.0"
 dependencies = [
  "indexmap",
  "insta",
+ "pulldown-cmark-escape",
 ]
 
 [[package]]
@@ -90,6 +91,12 @@ checksum = "95fc56cda0b5c3325f5fbbd7ff9fda9e02bb00bb3dac51252d2f1bfa1cb8cc8c"
 dependencies = [
  "unicode-ident",
 ]
+
+[[package]]
+name = "pulldown-cmark-escape"
+version = "0.11.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "007d8adb5ddab6f8e3f491ac63566a7d5002cc7ed73901f72057943fa71ae1ae"
 
 [[package]]
 name = "quote"
