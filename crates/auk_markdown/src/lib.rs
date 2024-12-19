@@ -1,3 +1,7 @@
+//! Markdown support for Auk.
+
+#![deny(missing_docs)]
+
 use std::collections::{HashMap, VecDeque};
 
 use auk::visitor::{noop_visit_element, MutVisitor};
@@ -9,94 +13,121 @@ use pulldown_cmark::{
 
 use slug::slugify;
 
-/// The props for an `a` element.
+/// The props for an `<a>` element.
 #[derive(Debug)]
 pub struct AProps {
+    /// The URL that the hyperlink points to.
     pub href: String,
+
+    /// The title of the hyperlink.
     pub title: Option<String>,
 }
 
-/// The props for a `code` element.
+/// The props for a `<code>` element.
 #[derive(Debug)]
 pub struct CodeProps {
+    /// The language of the code in this `<code>` element.
     pub language: Option<String>,
 }
 
-/// The props for an `img` element.
+/// The props for an `<img>` element.
 #[derive(Debug)]
 pub struct ImgProps {
+    /// The source URL of the image.
     pub src: String,
+
+    /// The text that can replace the image.
     pub alt: Option<String>,
+
+    /// The title of the image.
     pub title: Option<String>,
 }
 
-/// The props for a `pre` element.
+/// The props for a `<pre>` element.
 #[derive(Debug)]
 pub struct PreProps {
+    /// The language of the code in this `<pre>` element.
     pub language: Option<String>,
 }
 
+/// A trait for customizing the rendering of Markdown elements.
 pub trait MarkdownComponents: Send + Sync {
+    /// Renders a `<div>`.
     fn div(&self) -> HtmlElement {
         auk::div()
     }
 
+    /// Renders a `<p>`.
     fn p(&self) -> HtmlElement {
         auk::p()
     }
 
+    /// Renders an `<h1>`.
     fn h1(&self) -> HtmlElement {
         auk::h1()
     }
 
+    /// Renders an `<h2>`.
     fn h2(&self) -> HtmlElement {
         auk::h2()
     }
 
+    /// Renders an `<h3>`.
     fn h3(&self) -> HtmlElement {
         auk::h3()
     }
 
+    /// Renders an `<h4>`.
     fn h4(&self) -> HtmlElement {
         auk::h4()
     }
 
+    /// Renders an `<h5>`.
     fn h5(&self) -> HtmlElement {
         auk::h5()
     }
 
+    /// Renders an `<h6>`.
     fn h6(&self) -> HtmlElement {
         auk::h6()
     }
 
+    /// Renders a `<table>`.
     fn table(&self) -> HtmlElement {
         auk::table()
     }
 
+    /// Renders a `<thead>`.
     fn thead(&self) -> HtmlElement {
         auk::thead()
     }
 
+    /// Renders a `<tbody>`.
     fn tbody(&self) -> HtmlElement {
         auk::tbody()
     }
 
+    /// Renders a `<tr>`.
     fn tr(&self) -> HtmlElement {
         auk::tr()
     }
 
+    /// Renders a `<th>`.
     fn th(&self) -> HtmlElement {
         auk::th()
     }
 
+    /// Renders a `<td>`.
     fn td(&self) -> HtmlElement {
         auk::td()
     }
 
+    /// Renders a `<blockquote>`.
     fn blockquote(&self) -> HtmlElement {
         auk::blockquote()
     }
 
+    /// Renders a `<pre>`.
     fn pre(&self, props: PreProps) -> HtmlElement {
         auk::pre().with(|parent| {
             if let Some(language) = props.language {
@@ -109,6 +140,7 @@ pub trait MarkdownComponents: Send + Sync {
         })
     }
 
+    /// Renders a `<code>`.
     fn code(&self, props: CodeProps) -> HtmlElement {
         auk::code().with(|parent| {
             if let Some(language) = props.language {
@@ -121,38 +153,47 @@ pub trait MarkdownComponents: Send + Sync {
         })
     }
 
+    /// Handles the end of a code block.
     fn on_code_block_end(&self, pre: HtmlElement, code: HtmlElement) -> HtmlElement {
         pre.child(code)
     }
 
+    /// Renders an `<ol>`.
     fn ol(&self) -> HtmlElement {
         auk::ol()
     }
 
+    /// Renders a `<ul>`.
     fn ul(&self) -> HtmlElement {
         auk::ul()
     }
 
+    /// Renders an `<li>`.
     fn li(&self) -> HtmlElement {
         auk::li()
     }
 
+    /// Renders an `<em>`.
     fn em(&self) -> HtmlElement {
         auk::em()
     }
 
+    /// Renders a `<strong>`.
     fn strong(&self) -> HtmlElement {
         auk::strong()
     }
 
+    /// Renders a `<del>`.
     fn del(&self) -> HtmlElement {
         auk::del()
     }
 
+    /// Renders an `<a>`.
     fn a(&self, props: AProps) -> HtmlElement {
         auk::a().href(props.href).title::<String>(props.title)
     }
 
+    /// Renders an `<img>`.
     fn img(&self, props: ImgProps) -> HtmlElement {
         auk::img()
             .src(props.src)
@@ -160,14 +201,17 @@ pub trait MarkdownComponents: Send + Sync {
             .title::<String>(props.title)
     }
 
+    /// Renders a `<br>`.
     fn br(&self) -> HtmlElement {
         auk::br()
     }
 
+    /// Renders a `<hr>`.
     fn hr(&self) -> HtmlElement {
         auk::hr()
     }
 
+    /// Renders a `<sup>`.
     fn sup(&self) -> HtmlElement {
         auk::sup()
     }
@@ -186,7 +230,10 @@ impl DefaultMarkdownComponents {
 
 impl MarkdownComponents for DefaultMarkdownComponents {}
 
-pub fn markdown(
+/// Renders the provided Markdown text into [`Element`]s and its [`TableOfContents`].
+///
+/// Uses the provided [`MarkdownComponents`] to render specific Markdown elements.
+pub fn render_markdown(
     text: &str,
     components: &Box<dyn MarkdownComponents>,
 ) -> (Vec<Element>, TableOfContents) {
@@ -210,10 +257,12 @@ pub fn markdown(
     )
 }
 
+/// The table of contents for a Markdown document.
 #[derive(Debug, Default, Deref, DerefMut)]
 pub struct TableOfContents(Vec<Heading>);
 
 impl TableOfContents {
+    /// Returns a [`TableOfContents`] from the provided list of [`Heading`]s.
     pub fn from_headings(headings: Vec<Heading>) -> Self {
         let mut table_of_contents = vec![];
         for heading in headings {
@@ -249,11 +298,19 @@ impl TableOfContents {
     }
 }
 
+/// A heading in a Markdown document.
 #[derive(Debug, Clone)]
 pub struct Heading {
+    /// The level of this heading.
     pub level: u32,
+
+    /// The ID of this heading.
     pub id: String,
+
+    /// The title of this heading.
     pub title: String,
+
+    /// The child headings nested under this heading.
     pub children: Vec<Heading>,
 }
 
@@ -687,7 +744,8 @@ mod tests {
     use super::*;
 
     fn parse_and_render_markdown(text: &str) -> String {
-        let (elements, _table_of_contents) = markdown(text, &DefaultMarkdownComponents.boxed());
+        let (elements, _table_of_contents) =
+            render_markdown(text, &DefaultMarkdownComponents.boxed());
 
         elements
             .into_iter()
