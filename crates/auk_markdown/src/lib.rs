@@ -1,5 +1,4 @@
-//! Markdown support for Auk.
-
+#![doc = include_str!("../README.md")]
 #![deny(missing_docs)]
 
 mod markdown_components;
