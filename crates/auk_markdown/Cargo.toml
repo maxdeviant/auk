@@ -1,0 +1,14 @@
+[package]
+name = "auk_markdown"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+auk.workspace = true
+derive_more.workspace = true
+pulldown-cmark.workspace = true
+slug.workspace = true
+
+[dev-dependencies]
+indoc.workspace = true
+insta = { workspace = true, features = ["yaml"] }

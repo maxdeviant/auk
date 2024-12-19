@@ -1,0 +1,6 @@
+---
+source: crates/auk_markdown/src/lib.rs
+expression: parse_and_render_markdown(text)
+---
+"<p>The quick<sup class=\"footnote-reference\"><a href=\"#1\">1</a></sup> brown fox jumped over the lazy<sup class=\"footnote-reference\"><a href=\"#2\">2</a></sup> dog.</p><hr><div class=\"footnote-definition\" id=\"1\"><sup class=\"footnote-definition-label\">1</sup><p>The fox wasn't all that quick.</p></div><div class=\"footnote-definition\" id=\"2\"><sup class=\"footnote-definition-label\">2</sup><p>The dog wasn't all that lazy.</p></div>"
+

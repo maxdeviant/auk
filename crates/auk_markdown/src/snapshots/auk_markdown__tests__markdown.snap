@@ -1,0 +1,6 @@
+---
+source: crates/auk_markdown/src/lib.rs
+expression: parse_and_render_markdown(text)
+---
+"<h1>Hello, world!</h1><h2 id=\"this-is\">This is</h2><h3 id=\"a-markdown-document\">A markdown document</h3><p>Here are some items:</p><ul><li>Apple</li><li>Banana</li><li>Fruit</li></ul><p>And some ordered items:</p><ol><li>One</li><li>Two</li><li>Three</li></ol>"
+

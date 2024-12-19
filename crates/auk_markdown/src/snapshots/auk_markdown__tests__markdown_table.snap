@@ -1,0 +1,6 @@
+---
+source: crates/auk_markdown/src/lib.rs
+expression: parse_and_render_markdown(text)
+---
+"<h1>Table</h1><table><thead><tr><th>Name</th><th>Value</th><th>Value 2</th></tr></thead><tbody><tr><td>A</td><td>1</td><td>17</td></tr><tr><td>B</td><td>2</td><td>25</td></tr><tr><td>C</td><td>3</td><td>32</td></tr></tbody></table>"
+

@@ -1,0 +1,6 @@
+---
+source: crates/auk_markdown/src/lib.rs
+expression: parse_and_render_markdown(text)
+---
+"<p>Here is a <a href=\"https://example.com\">link</a> that you should click!</p>"
+
