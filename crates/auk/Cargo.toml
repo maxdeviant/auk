@@ -1,0 +1,18 @@
+[package]
+name = "auk"
+version = "0.5.0"
+description = "An eDSL for writing HTML using standard Rust syntax."
+repository = "https://github.com/maxdeviant/auk"
+documentation = "https://docs.rs/auk"
+categories = ["template-engine", "web-programming"]
+keywords = ["html", "dsl", "markup", "template"]
+authors = ["Marshall Bowers <elliott.codes@gmail.com>"]
+license = "MIT"
+edition = "2021"
+
+[dependencies]
+indexmap.workspace = true
+pulldown-cmark-escape.workspace = true
+
+[dev-dependencies]
+insta = { workspace = true, features = ["yaml"] }
