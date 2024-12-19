@@ -3,7 +3,7 @@ resolver = "2"
 members = ["crates/*"]
 
 [workspace.dependencies]
-auk = { path = "crates/auk" }
+auk = { version = "0.6.0", path = "crates/auk" }
 derive_more = "0.99.18"
 indexmap = "2.1.0"
 indoc = "2.0.4"
