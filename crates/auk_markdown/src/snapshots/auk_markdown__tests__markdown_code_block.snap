@@ -1,0 +1,6 @@
+---
+source: crates/auk_markdown/src/lib.rs
+expression: parse_and_render_markdown(text)
+---
+"<pre class=\"language-html\" data-lang=\"html\"><code class=\"language-html\" data-lang=\"html\">&lt;div&gt;\n  &lt;h1 ng-if=\"isLoggedIn\"&gt;Welcome back!&lt;/h1&gt;\n  &lt;h1 ng-if=\"!isLoggedIn\"&gt;Please sign in.&lt;/h1&gt;\n&lt;/div&gt;\n</code></pre>"
+

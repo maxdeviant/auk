@@ -42,25 +42,6 @@ enum TableState {
     Body,
 }
 
-fn escape_html(text: &str) -> String {
-    // TODO: Should we be doing the escaping inside of `auk`?
-    let mut escaped_text = String::with_capacity(text.len());
-    md::escape::escape_html(&mut escaped_text, &text).unwrap();
-    escaped_text
-}
-
-fn escape_html_extended(text: &str) -> String {
-    escape_html(text)
-        .replace('\'', "&#x27;")
-        .replace('/', "&#x2F;")
-}
-
-fn escape_href(href: &str) -> String {
-    let mut escaped_href = String::with_capacity(href.len());
-    md::escape::escape_href(&mut escaped_href, &href).unwrap();
-    escaped_href
-}
-
 struct HtmlElementWriter<'a, I>
 where
     I: Iterator<Item = Event<'a>>,
@@ -102,27 +83,15 @@ where
                     self.end_tag(tag);
                 }
                 Event::Text(text) => {
-                    let inside_pre = self
-                        .current_element_stack
-                        .iter()
-                        .rfind(|element| element.tag_name == "pre")
-                        .is_some();
-
                     if let Some(element) = self.current_element_stack.iter_mut().last() {
-                        let text = if inside_pre {
-                            escape_html_extended(&text)
-                        } else {
-                            escape_html(&text)
-                        };
-
-                        element.extend([text.into()]);
+                        element.extend([text.to_string().into()]);
                     }
                 }
                 Event::Code(text) => {
                     self.write(
                         self.components
                             .code(CodeProps { language: None })
-                            .child(escape_html(&text)),
+                            .child(text.to_string()),
                     );
                 }
                 Event::Html(html) => self.write_raw_html(&html),
@@ -142,7 +111,7 @@ where
                         self.components.sup().class("footnote-reference").child(
                             self.components
                                 .a(AProps {
-                                    href: format!("#{}", escape_html(&name)),
+                                    href: format!("#{name}"),
                                     title: None,
                                 })
                                 .child(number.to_string()),
@@ -174,7 +143,7 @@ where
                 }
                 Event::Html(_) => {}
                 Event::Text(text) | Event::Code(text) => {
-                    raw_text.push_str(&escape_html(&text));
+                    raw_text.push_str(&text);
                 }
                 Event::SoftBreak | Event::HardBreak | Event::Rule => {
                     raw_text.push(' ');
@@ -227,16 +196,10 @@ where
                 };
 
                 self.push(
-                    heading.id::<String>(id.map(escape_html)).class::<String>(
+                    heading.id::<String>(id.map(Into::into)).class::<String>(
                         Some(classes)
                             .filter(|classes| !classes.is_empty())
-                            .map(|classes| {
-                                classes
-                                    .into_iter()
-                                    .map(escape_html)
-                                    .collect::<Vec<_>>()
-                                    .join(" ")
-                            }),
+                            .map(|classes| classes.into_iter().collect::<Vec<_>>().join(" ")),
                     ),
                 )
             }
@@ -266,7 +229,7 @@ where
                 let language = match kind {
                     CodeBlockKind::Fenced(info) => Some(info.split(' ').next().unwrap())
                         .filter(|language| !language.trim().is_empty())
-                        .map(escape_html),
+                        .map(Into::into),
                     CodeBlockKind::Indented => None,
                 };
 
@@ -284,28 +247,28 @@ where
             Tag::Strikethrough => self.push(self.components.del()),
             Tag::Link(LinkType::Email, dest, title) => self.push(
                 self.components.a(AProps {
-                    href: format!("mailto:{}", escape_href(&dest)),
+                    href: format!("mailto:{dest}"),
                     title: Some(title)
                         .filter(|title| !title.is_empty())
-                        .map(|title| escape_html(&title)),
+                        .map(|title| title.to_string()),
                 }),
             ),
             Tag::Link(_link_type, dest, title) => self.push(
                 self.components.a(AProps {
-                    href: escape_href(&dest),
+                    href: dest.to_string(),
                     title: Some(title)
                         .filter(|title| !title.is_empty())
-                        .map(|title| escape_html(&title)),
+                        .map(|title| title.to_string()),
                 }),
             ),
             Tag::Image(_link_type, dest, title) => {
                 let alt = Some(self.run_raw_text()).filter(|alt| !alt.trim().is_empty());
                 let title = Some(title)
                     .filter(|title| !title.is_empty())
-                    .map(|title| escape_html(&title));
+                    .map(|title| title.to_string());
 
                 self.write(self.components.img(ImgProps {
-                    src: escape_href(&dest),
+                    src: dest.to_string(),
                     alt,
                     title,
                 }));
@@ -321,7 +284,7 @@ where
                     self.components
                         .div()
                         .class("footnote-definition")
-                        .id(escape_html(&name)),
+                        .id(name.to_string()),
                 );
                 self.write(
                     self.components
@@ -490,6 +453,20 @@ mod tests {
 
             [^2]: The dog wasn't all that lazy.
         "};
+
+        insta::assert_yaml_snapshot!(parse_and_render_markdown(text));
+    }
+
+    #[test]
+    fn test_markdown_code_block() {
+        let text = indoc! {r#"
+            ```html
+            <div>
+              <h1 ng-if="isLoggedIn">Welcome back!</h1>
+              <h1 ng-if="!isLoggedIn">Please sign in.</h1>
+            </div>
+            ```
+        "#};
 
         insta::assert_yaml_snapshot!(parse_and_render_markdown(text));
     }

@@ -2,5 +2,5 @@
 source: crates/auk_markdown/src/lib.rs
 expression: parse_and_render_markdown(text)
 ---
-"<p>Check out this cool image:</p><p><img src=\"https://example.com/cool-image.png\" alt=\"very cool image\"></p><p>This painting is beautiful:</p><p><img src=\"https://example.com/sunflowers.png\" alt=\"A photo of Sunflowers by Van Gogh\"></p><p>Here's a picture of a less-than sign:</p><p><img src=\"https://example.com/less-than.png\" alt=\"A picture of a &amp;lt; sign\"></p><p><img src=\"https://example.com/ls-output.png\" alt=\"A screenshot of ls output\"></p>"
+"<p>Check out this cool image:</p><p><img src=\"https://example.com/cool-image.png\" alt=\"very cool image\"></p><p>This painting is beautiful:</p><p><img src=\"https://example.com/sunflowers.png\" alt=\"A photo of Sunflowers by Van Gogh\"></p><p>Here's a picture of a less-than sign:</p><p><img src=\"https://example.com/less-than.png\" alt=\"A picture of a &lt; sign\"></p><p><img src=\"https://example.com/ls-output.png\" alt=\"A screenshot of ls output\"></p>"
 
