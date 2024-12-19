@@ -173,6 +173,7 @@ pub trait MarkdownComponents: Send + Sync {
     }
 }
 
+#[allow(unused)]
 #[derive(Debug, Clone, Copy)]
 pub(crate) struct DefaultMarkdownComponents;
 
