@@ -1,0 +1,6 @@
+---
+source: crates/auk/src/lib.rs
+expression: "render_to_string(&a().href(\"https://example.com?param=\\\"><script>alert('XSS');</script>\").child(\"Click me\"))"
+---
+"<a href=\"https://example.com?param=%22%3E%3Cscript%3Ealert(&#x27;XSS&#x27;);%3C/script%3E\">Click me</a>"
+

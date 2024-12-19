@@ -2,7 +2,7 @@
 
 use std::fmt::Write;
 
-use pulldown_cmark_escape::{escape_html, escape_html_body_text};
+use pulldown_cmark_escape::{escape_href, escape_html, escape_html_body_text};
 
 use crate::visitor::Visitor;
 use crate::HtmlElement;
@@ -73,7 +73,12 @@ impl Visitor for HtmlElementRenderer {
         if !value.is_empty() {
             write!(&mut self.html, "=")?;
             write!(&mut self.html, "\"")?;
-            escape_html(&mut self.html, value)?;
+            if name == "href" || name == "src" {
+                escape_href(&mut self.html, value)?;
+            } else {
+                escape_html(&mut self.html, value)?;
+            }
+
             write!(&mut self.html, "\"")?;
         }
 

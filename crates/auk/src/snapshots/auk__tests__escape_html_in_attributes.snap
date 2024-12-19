@@ -1,6 +1,6 @@
 ---
-source: src/lib.rs
-expression: "render_to_string(&a().href(\"https://example.com?param=\\\"><script>alert('XSS');</script>\").child(\"Click me\"))"
+source: crates/auk/src/lib.rs
+expression: "render_to_string(&input().type_(\"text\").name(\"username\").value(\"\\\" onmouseover=\\\"alert('XSS')\\\"\"))"
 ---
-"<a href=\"https://example.com?param=&quot;&gt;&lt;script&gt;alert(&#39;XSS&#39;);&lt;/script&gt;\">Click me</a>"
+"<input type=\"text\" name=\"username\" value=\"&quot; onmouseover=&quot;alert(&#39;XSS&#39;)&quot;\">"
 

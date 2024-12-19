@@ -312,6 +312,16 @@ mod tests {
     #[test]
     fn test_escape_html_in_attributes() {
         insta::assert_yaml_snapshot!(render_to_string(
+            &input()
+                .type_("text")
+                .name("username")
+                .value("\" onmouseover=\"alert('XSS')\"")
+        ));
+    }
+
+    #[test]
+    fn test_escape_html_in_hrefs() {
+        insta::assert_yaml_snapshot!(render_to_string(
             &a().href("https://example.com?param=\"><script>alert('XSS');</script>")
                 .child("Click me")
         ));
