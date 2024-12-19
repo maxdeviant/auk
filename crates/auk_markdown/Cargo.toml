@@ -1,6 +1,13 @@
 [package]
 name = "auk_markdown"
 version = "0.1.0"
+description = "Markdown support for Auk."
+repository = "https://github.com/maxdeviant/auk"
+documentation = "https://docs.rs/auk_markdown"
+categories = ["template-engine", "text-processing"]
+keywords = ["auk", "markdown"]
+authors = ["Marshall Bowers <elliott.codes@gmail.com>"]
+license = "MIT"
 edition = "2021"
 
 [dependencies]
