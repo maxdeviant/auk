@@ -6,7 +6,7 @@ mod table_of_contents;
 
 use std::collections::{HashMap, VecDeque};
 
-use auk::{Element, HtmlElement, WithChildren};
+use auk::{Element, HtmlElement, TextElement, WithChildren};
 use pulldown_cmark::{
     self as md, Alignment, CodeBlockKind, CowStr, Event, HeadingLevel, LinkType, Tag,
 };
@@ -164,6 +164,11 @@ where
     }
 
     fn write_raw_html(&mut self, html: &str) {
+        let html = TextElement {
+            text: html.into(),
+            safe: true,
+        };
+
         if let Some(parent) = self.current_element_stack.back_mut() {
             parent.extend([html.into()]);
         } else {
@@ -465,6 +470,17 @@ mod tests {
               <h1 ng-if="!isLoggedIn">Please sign in.</h1>
             </div>
             ```
+        "#};
+
+        insta::assert_yaml_snapshot!(parse_and_render_markdown(text));
+    }
+
+    #[test]
+    fn test_markdown_raw_html() {
+        let text = indoc! {r#"
+            Here is a statement some might find controversial:
+
+            <abbr title="Massively multiplayer online role-playing game">MMORPG</abbr>s are the best genre of game.
         "#};
 
         insta::assert_yaml_snapshot!(parse_and_render_markdown(text));

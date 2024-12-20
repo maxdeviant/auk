@@ -1,0 +1,6 @@
+---
+source: crates/auk_markdown/src/lib.rs
+expression: parse_and_render_markdown(text)
+---
+"<p>Here is a statement some might find controversial:</p><p><abbr title=\"Massively multiplayer online role-playing game\">MMORPG</abbr>s are the best genre of game.</p>"
+
