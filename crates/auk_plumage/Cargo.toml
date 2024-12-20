@@ -1,0 +1,10 @@
+[package]
+name = "auk_plumage"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+paste.workspace = true
+
+[build-dependencies]
+walkdir.workspace = true

@@ -1,0 +1,5 @@
+@each $step in (1, 2, 3, 4, 5, 6, 7, 8, 9) {
+  .font-weight-#{$step} {
+    font-weight: $step * 100;
+  }
+}

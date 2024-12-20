@@ -1,0 +1,5 @@
+@each $type in (none, disc, decimal) {
+  .list-#{$type} {
+    list-style-type: $type;
+  }
+}

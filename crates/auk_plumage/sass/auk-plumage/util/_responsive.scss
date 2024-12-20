@@ -1,0 +1,33 @@
+@mixin not-small {
+  @media screen and (min-width: 30em) {
+    @content ($suffix: "-ns");
+  }
+}
+
+@mixin medium {
+  @media screen and (min-width: 30em) and (max-width: 60em) {
+    @content ($suffix: "-m");
+  }
+}
+
+@mixin large {
+  @media screen and (min-width: 60em) {
+    @content ($suffix: "-l");
+  }
+}
+
+@mixin responsive {
+  @content ($suffix: "");
+
+  @include not-small using ($suffix) {
+    @content ($suffix);
+  }
+
+  @include medium using ($suffix) {
+    @content ($suffix);
+  }
+
+  @include large using ($suffix) {
+    @content ($suffix);
+  }
+}

@@ -1,0 +1,109 @@
+:root {
+  --spacing-0: 0;
+  --spacing-1: 0.125rem;
+  --spacing-2: 0.25rem;
+  --spacing-3: 0.5rem;
+  --spacing-4: 1rem;
+  --spacing-5: 2rem;
+  --spacing-6: 4rem;
+  --spacing-7: 8rem;
+  --spacing-8: 16rem;
+}
+
+@function spacing($step) {
+  @return var(--spacing-#{$step});
+}
+
+@include responsive() using ($suffix) {
+  @each $step in (0, 1, 2, 3, 4, 5, 6, 7, 8) {
+    .m-#{$step}#{$suffix} {
+      margin: spacing($step);
+    }
+
+    .mt-#{$step}#{$suffix} {
+      margin-top: spacing($step);
+    }
+
+    .mr-#{$step}#{$suffix} {
+      margin-right: spacing($step);
+    }
+
+    .mb-#{$step}#{$suffix} {
+      margin-bottom: spacing($step);
+    }
+
+    .ml-#{$step}#{$suffix} {
+      margin-left: spacing($step);
+    }
+
+    .mx-#{$step}#{$suffix} {
+      margin-left: spacing($step);
+      margin-right: spacing($step);
+    }
+
+    .my-#{$step}#{$suffix} {
+      margin-top: spacing($step);
+      margin-bottom: spacing($step);
+    }
+
+    .p-#{$step}#{$suffix} {
+      padding: spacing($step);
+    }
+
+    .pt-#{$step}#{$suffix} {
+      padding-top: spacing($step);
+    }
+
+    .pr-#{$step}#{$suffix} {
+      padding-right: spacing($step);
+    }
+
+    .pb-#{$step}#{$suffix} {
+      padding-bottom: spacing($step);
+    }
+
+    .pl-#{$step}#{$suffix} {
+      padding-left: spacing($step);
+    }
+
+    .px-#{$step}#{$suffix} {
+      padding-left: spacing($step);
+      padding-right: spacing($step);
+    }
+
+    .py-#{$step}#{$suffix} {
+      padding-top: spacing($step);
+      padding-bottom: spacing($step);
+    }
+  }
+
+  .m-auto#{$suffix} {
+    margin: auto;
+  }
+
+  .mt-auto#{$suffix} {
+    margin-top: auto;
+  }
+
+  .mr-auto#{$suffix} {
+    margin-right: auto;
+  }
+
+  .mb-auto#{$suffix} {
+    margin-bottom: auto;
+  }
+
+  .ml-auto#{$suffix} {
+    margin-left: auto;
+  }
+
+  .mx-auto#{$suffix} {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .my-auto#{$suffix} {
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+}

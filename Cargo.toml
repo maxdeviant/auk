@@ -8,9 +8,11 @@ derive_more = "0.99.18"
 indexmap = "2.1.0"
 indoc = "2.0.4"
 insta = "1.34.0"
+paste = "1.0.15"
 pulldown-cmark = { version = "0.9.3", default-features = false }
 pulldown-cmark-escape = "0.11.0"
 slug = "0.1.5"
+walkdir = "2.5.0"
 
 [profile.dev.package]
 insta.opt-level = 3

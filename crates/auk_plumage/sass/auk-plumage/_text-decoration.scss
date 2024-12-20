@@ -1,0 +1,16 @@
+$text-decorations: (
+  "underline": underline,
+  "no-underline": none,
+  "line-through": line-through,
+  "overline": overline,
+);
+
+@each $name, $value in $text-decorations {
+  .#{$name} {
+    text-decoration-line: $value;
+  }
+
+  .hover\:#{$name}:hover {
+    text-decoration-line: $value;
+  }
+}

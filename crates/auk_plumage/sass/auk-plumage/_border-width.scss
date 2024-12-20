@@ -1,0 +1,61 @@
+@each $step in (0, 1, 2, 3, 4, 5) {
+  .border-#{$step} {
+    border-width: spacing($step);
+  }
+
+  .border-t-#{$step} {
+    border-top-width: spacing($step);
+  }
+
+  .border-r-#{$step} {
+    border-right-width: spacing($step);
+  }
+
+  .border-b-#{$step} {
+    border-bottom-width: spacing($step);
+  }
+
+  .border-l-#{$step} {
+    border-left-width: spacing($step);
+  }
+
+  .border-x-#{$step} {
+    border-left-width: spacing($step);
+    border-right-width: spacing($step);
+  }
+
+  .border-y-#{$step} {
+    border-top-width: spacing($step);
+    border-bottom-width: spacing($step);
+  }
+}
+
+.border-px {
+  border-width: 1px;
+}
+
+.border-t-px {
+  border-top-width: 1px;
+}
+
+.border-r-px {
+  border-right-width: 1px;
+}
+
+.border-b-px {
+  border-bottom-width: 1px;
+}
+
+.border-l-px {
+  border-left-width: 1px;
+}
+
+.border-x-px {
+  border-left-width: 1px;
+  border-right-width: 1px;
+}
+
+.border-y-px {
+  border-top-width: 1px;
+  border-bottom-width: 1px;
+}

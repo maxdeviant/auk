@@ -1,0 +1,20 @@
+$max-width-scale: (
+  0: 0,
+  1: 1rem,
+  2: 2rem,
+  3: 4rem,
+  4: 8rem,
+  5: 16rem,
+  6: 32rem,
+  7: 48rem,
+  8: 64rem,
+  9: 96rem,
+);
+
+@include responsive() using ($suffix) {
+  @each $step, $max-width in $max-width-scale {
+    .max-w-#{$step}#{$suffix} {
+      max-width: $max-width;
+    }
+  }
+}

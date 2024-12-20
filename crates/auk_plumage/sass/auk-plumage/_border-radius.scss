@@ -1,0 +1,9 @@
+@each $step in (0, 1, 2, 3, 4, 5, 6, 7, 8) {
+  .rounded-#{$step} {
+    border-radius: spacing($step);
+  }
+}
+
+.rounded-full {
+  border-radius: 9999px;
+}
