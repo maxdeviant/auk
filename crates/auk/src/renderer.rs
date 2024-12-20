@@ -60,8 +60,12 @@ impl Visitor for HtmlElementRenderer {
         Ok(())
     }
 
-    fn visit_text(&mut self, text: &str) -> Result<(), Self::Error> {
-        escape_html_body_text(&mut self.html, text)?;
+    fn visit_text(&mut self, text: &str, safe: bool) -> Result<(), Self::Error> {
+        if safe {
+            write!(&mut self.html, "{text}")?;
+        } else {
+            escape_html_body_text(&mut self.html, text)?;
+        }
 
         Ok(())
     }

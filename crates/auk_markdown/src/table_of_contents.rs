@@ -141,7 +141,7 @@ impl MutVisitor for HeadingIdentifier {
         noop_visit_element(self, element)
     }
 
-    fn visit_text(&mut self, text: &mut String) -> Result<(), Self::Error> {
+    fn visit_text(&mut self, text: &mut String, _safe: &mut bool) -> Result<(), Self::Error> {
         if self.inside_header {
             let mut title = self.title.take().unwrap_or_default();
             title.push_str(&text);

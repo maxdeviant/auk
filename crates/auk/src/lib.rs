@@ -114,12 +114,32 @@ impl WithChildren for HtmlElement {
 pub struct TextElement {
     /// The text content of this element.
     pub text: String,
+
+    /// Whether the text is safe and does not need to be escaped.
+    ///
+    /// **Setting this field is dangerous. Only set this to `true` if you are
+    /// certain that the text does not contain any HTML that needs to be
+    /// escaped. Failure to do so makes it trivial to introduce an
+    /// [XSS](https://en.wikipedia.org/wiki/Cross-site_scripting)
+    /// vulnerability.**
+    pub safe: bool,
 }
 
 impl TextElement {
     /// Returns a new [`TextElement`] with the given text.
     pub fn new(text: impl Into<String>) -> Self {
-        Self { text: text.into() }
+        Self {
+            text: text.into(),
+            safe: false,
+        }
+    }
+
+    /// Returns a new [`TextElement`] with the given safe text.
+    pub fn safe_static(text: &'static str) -> Self {
+        Self {
+            text: text.into(),
+            safe: true,
+        }
     }
 }
 
@@ -306,6 +326,18 @@ mod tests {
     fn test_escape_html_in_body_text() {
         insta::assert_yaml_snapshot!(render_to_string(
             &p().child("This is an <script>alert('XSS');</script> attempt")
+        ));
+    }
+
+    #[test]
+    fn test_escape_html_in_body_text_with_character_references() {
+        insta::assert_yaml_snapshot!(render_to_string(
+            &div()
+                .child(
+                    p().child(TextElement::safe_static("&bull;"))
+                        .child(TextElement::safe_static("&nbsp;"))
+                )
+                .child(p().child("&bull;").child("&nbsp;"))
         ));
     }
 

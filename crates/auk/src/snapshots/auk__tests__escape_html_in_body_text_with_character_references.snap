@@ -1,0 +1,6 @@
+---
+source: crates/auk/src/lib.rs
+expression: "render_to_string(&div().child(p().child(TextElement::safe_static(\"&bull;\")).child(TextElement::safe_static(\"&nbsp;\"))).child(p().child(\"&bull;\").child(\"&nbsp;\")))"
+---
+"<div><p>&bull;&nbsp;</p><p>&amp;bull;&amp;nbsp;</p></div>"
+

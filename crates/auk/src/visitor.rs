@@ -13,7 +13,7 @@ pub trait Visitor: Sized {
     }
 
     /// Visits the given text.
-    fn visit_text(&mut self, _text: &str) -> Result<(), Self::Error> {
+    fn visit_text(&mut self, _text: &str, _safe: bool) -> Result<(), Self::Error> {
         Ok(())
     }
 
@@ -44,7 +44,7 @@ pub fn walk_children<V: Visitor>(visitor: &mut V, children: &[Element]) -> Resul
     for child in children {
         match child {
             Element::Html(element) => visitor.visit(element)?,
-            Element::Text(TextElement { text }) => visitor.visit_text(text)?,
+            Element::Text(TextElement { text, safe }) => visitor.visit_text(text, *safe)?,
         }
     }
 
@@ -62,7 +62,7 @@ pub trait MutVisitor: Sized {
     }
 
     /// Visits the given text.
-    fn visit_text(&mut self, _text: &mut String) -> Result<(), Self::Error> {
+    fn visit_text(&mut self, _text: &mut String, _safe: &mut bool) -> Result<(), Self::Error> {
         Ok(())
     }
 
@@ -99,7 +99,7 @@ pub fn noop_visit_children<V: MutVisitor>(
     for child in children {
         match child {
             Element::Html(element) => visitor.visit(element)?,
-            Element::Text(TextElement { text }) => visitor.visit_text(text)?,
+            Element::Text(TextElement { text, safe }) => visitor.visit_text(text, safe)?,
         }
     }
 
