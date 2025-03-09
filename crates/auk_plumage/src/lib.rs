@@ -20,23 +20,6 @@ pub fn sass_load_path() -> PathBuf {
 }
 
 /// Generates style methods that correspond to the specified CSS class names.
-///
-/// # Examples
-///
-/// ```
-/// use auk_plumage::style_methods;
-///
-/// style_methods! {
-///     primary: "primary",
-///     secondary: "secondary",
-///     success: "success",
-///     danger: "danger",
-///     warning: "warning",
-///     info: "info",
-///     light: "light",
-///     dark: "dark",
-/// }
-/// ```
 #[macro_export]
 macro_rules! style_methods {
     ($($method_name:ident : $class_name:expr),*) => {
