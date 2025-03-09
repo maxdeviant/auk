@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.0] - 2025-03-08
 
-- Initial releaase
+- Initial release
 
 [unreleased]: https://github.com/maxdeviant/auk/compare/auk-plumage-v0.1.0...HEAD
 [0.1.0]: https://github.com/maxdeviant/auk/releases/tag/auk-plumage-v0.1.0
