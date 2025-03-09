@@ -1,3 +1,6 @@
+#![doc = include_str!("../README.md")]
+#![deny(missing_docs)]
+
 use std::path::PathBuf;
 
 /// Private internals used by macros.
@@ -8,11 +11,32 @@ pub mod __private {
     pub use paste::paste;
 }
 
+/// Returns the load path for the Sass files bundled with `auk_plumage`.
+///
+/// Include this path in the load paths in your Sass compiler.
 pub fn sass_load_path() -> PathBuf {
     let out_dir = PathBuf::from(env!("OUT_DIR"));
     out_dir.join("sass")
 }
 
+/// Generates style methods that correspond to the specified CSS class names.
+///
+/// # Examples
+///
+/// ```
+/// use auk_plumage::style_methods;
+///
+/// style_methods! {
+///     primary: "primary",
+///     secondary: "secondary",
+///     success: "success",
+///     danger: "danger",
+///     warning: "warning",
+///     info: "info",
+///     light: "light",
+///     dark: "dark",
+/// }
+/// ```
 #[macro_export]
 macro_rules! style_methods {
     ($($method_name:ident : $class_name:expr),*) => {
@@ -24,6 +48,9 @@ macro_rules! style_methods {
     }
 }
 
+/// Generates responsive style methods that correspond to the specified CSS class names.
+///
+/// Each generated method will have a responsive variant for each responsive breakpoint.
 #[macro_export]
 macro_rules! responsive_style_methods {
     ($($method_name:ident : $class_name:expr),*) => {
@@ -49,6 +76,7 @@ macro_rules! responsive_style_methods {
     }
 }
 
+/// Generates style methods for all of the styles provided by `auk_plumage`.
 #[macro_export]
 macro_rules! all {
     () => {
@@ -77,6 +105,7 @@ macro_rules! all {
     };
 }
 
+/// Generates style methods for the spacing classes.
 #[macro_export]
 macro_rules! spacing {
     () => {
@@ -260,6 +289,7 @@ macro_rules! spacing {
     };
 }
 
+/// Generates style methods for the sizing classes.
 #[macro_export]
 macro_rules! sizing {
     () => {
@@ -317,6 +347,9 @@ macro_rules! sizing {
     };
 }
 
+/// Generates style methods for the `max-width` classes.
+///
+/// [MDN: `max-width`](https://developer.mozilla.org/en-US/docs/Web/CSS/max-width)
 #[macro_export]
 macro_rules! max_width {
     () => {
@@ -334,6 +367,9 @@ macro_rules! max_width {
     };
 }
 
+/// Generates style methods for the `display` classes.
+///
+/// [MDN: `display`](https://developer.mozilla.org/en-US/docs/Web/CSS/display)
 #[macro_export]
 macro_rules! display {
     () => {
@@ -350,6 +386,9 @@ macro_rules! display {
     };
 }
 
+/// Generates style methods for the `position` classes.
+///
+/// [MDN: `position`](https://developer.mozilla.org/en-US/docs/Web/CSS/position)
 #[macro_export]
 macro_rules! position {
     () => {
@@ -363,6 +402,9 @@ macro_rules! position {
     };
 }
 
+/// Generates style methods for the `appearance` classes.
+///
+/// [MDN: `appearance`](https://developer.mozilla.org/en-US/docs/Web/CSS/appearance)
 #[macro_export]
 macro_rules! appearance {
     () => {
@@ -373,6 +415,7 @@ macro_rules! appearance {
     };
 }
 
+/// Generates style methods for the flexbox and CSS grid classes.
 #[macro_export]
 macro_rules! flex_grid {
     () => {
@@ -422,6 +465,9 @@ macro_rules! flex_grid {
     };
 }
 
+/// Generates style methods for the `align-items` classes.
+///
+/// [MDN: `align-items`](https://developer.mozilla.org/en-US/docs/Web/CSS/align-items)
 #[macro_export]
 macro_rules! align_items {
     () => {
@@ -435,6 +481,9 @@ macro_rules! align_items {
     };
 }
 
+/// Generates style methods for the `justify-content` classes.
+///
+/// [MDN: `justify-content`](https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content)
 #[macro_export]
 macro_rules! justify_content {
     () => {
@@ -449,6 +498,9 @@ macro_rules! justify_content {
     };
 }
 
+/// Generates style methods for the `gap` classes.
+///
+/// [MDN: `gap`](https://developer.mozilla.org/en-US/docs/Web/CSS/gap)
 #[macro_export]
 macro_rules! gap {
     () => {
@@ -466,6 +518,9 @@ macro_rules! gap {
     };
 }
 
+/// Generates style methods for the `grid-template-columns` classes.
+///
+/// [MDN: `grid-template-columns`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-columns)
 #[macro_export]
 macro_rules! grid_template_columns {
     () => {
@@ -488,6 +543,9 @@ macro_rules! grid_template_columns {
     };
 }
 
+/// Generates style methods for the `font-size` classes.
+///
+/// [MDN: `font-size`](https://developer.mozilla.org/en-US/docs/Web/CSS/font-size)
 #[macro_export]
 macro_rules! font_size {
     () => {
@@ -504,6 +562,9 @@ macro_rules! font_size {
     };
 }
 
+/// Generates style methods for the `font-weight` classes.
+///
+/// [MDN: `font-weight`](https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight)
 #[macro_export]
 macro_rules! font_weight {
     () => {
@@ -521,6 +582,9 @@ macro_rules! font_weight {
     };
 }
 
+/// Generates style methods for the leading (`line-height`) classes.
+///
+/// [MDN: `line-height`](https://developer.mozilla.org/en-US/docs/Web/CSS/line-height)
 #[macro_export]
 macro_rules! leading {
     () => {
@@ -535,6 +599,9 @@ macro_rules! leading {
     };
 }
 
+/// Generates style methods for the tracking (`letter-spacing`) classes.
+///
+/// [MDN: `letter-spacing`](https://developer.mozilla.org/en-US/docs/Web/CSS/letter-spacing)
 #[macro_export]
 macro_rules! tracking {
     () => {
@@ -549,6 +616,9 @@ macro_rules! tracking {
     };
 }
 
+/// Generates style methods for the `text-align` classes.
+///
+/// [MDN: `text-align`](https://developer.mozilla.org/en-US/docs/Web/CSS/text-align)
 #[macro_export]
 macro_rules! text_align {
     () => {
@@ -561,6 +631,9 @@ macro_rules! text_align {
     };
 }
 
+/// Generates style methods for the `text-decoration` classes.
+///
+/// [MDN: `text-decoration`](https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration)
 #[macro_export]
 macro_rules! text_decoration {
     () => {
@@ -580,6 +653,9 @@ macro_rules! text_decoration {
     };
 }
 
+/// Generates style methods for the `text-transform` classes.
+///
+/// [MDN: `text-transform`](https://developer.mozilla.org/en-US/docs/Web/CSS/text-transform)
 #[macro_export]
 macro_rules! text_transform {
     () => {
@@ -592,6 +668,9 @@ macro_rules! text_transform {
     };
 }
 
+/// Generates style methods for the `list-style-type` classes.
+///
+/// [MDN: `list-style-type`](https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-type)
 #[macro_export]
 macro_rules! list_style_type {
     () => {
@@ -603,6 +682,9 @@ macro_rules! list_style_type {
     };
 }
 
+/// Generates style methods for the `border-width` classes.
+///
+/// [MDN: `border-width`](https://developer.mozilla.org/en-US/docs/Web/CSS/border-width)
 #[macro_export]
 macro_rules! border_width {
     () => {
@@ -678,6 +760,9 @@ macro_rules! border_width {
     };
 }
 
+/// Generates style methods for the `border-style` classes.
+///
+/// [MDN: `border-style`](https://developer.mozilla.org/en-US/docs/Web/CSS/border-style)
 #[macro_export]
 macro_rules! border_style {
     () => {
@@ -692,6 +777,9 @@ macro_rules! border_style {
     };
 }
 
+/// Generates style methods for the `border-radius` classes.
+///
+/// [MDN: `border-radius`](https://developer.mozilla.org/en-US/docs/Web/CSS/border-radius)
 #[macro_export]
 macro_rules! border_radius {
     () => {
