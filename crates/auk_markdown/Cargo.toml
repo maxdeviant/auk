@@ -6,7 +6,7 @@ repository = "https://github.com/maxdeviant/auk"
 documentation = "https://docs.rs/auk_markdown"
 categories = ["template-engine", "text-processing"]
 keywords = ["auk", "markdown"]
-authors = ["Marshall Bowers <elliott.codes@gmail.com>"]
+authors = ["Marshall Bowers <crates@maxdeviant.com>"]
 license = "MIT"
 edition = "2021"
 
