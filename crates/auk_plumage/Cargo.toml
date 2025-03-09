@@ -1,6 +1,13 @@
 [package]
 name = "auk_plumage"
 version = "0.1.0"
+description = "A utility CSS library for Auk."
+repository = "https://github.com/maxdeviant/auk"
+documentation = "https://docs.rs/auk_plumage"
+categories = ["web-programming"]
+keywords = ["auk", "utility", "css", "sass", "tailwind"]
+authors = ["Marshall Bowers <crates@maxdeviant.com>"]
+license = "MIT"
 edition = "2021"
 
 [dependencies]
