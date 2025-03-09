@@ -6,3 +6,4 @@ Auk is an <abbr title="embedded domain-specific language">eDSL</abbr> for writin
 | --------------------------------------- | --------------------------------- |
 | [`auk`](./crates/auk)                   | The main Auk crate                |
 | [`auk_markdown`](./crates/auk_markdown) | Provides Markdown support for Auk |
+| [`auk_plumage`](./crates/auk_plumage)   | Utility CSS styling for Auk       |
