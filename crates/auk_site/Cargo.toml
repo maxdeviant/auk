@@ -1,0 +1,13 @@
+[package]
+name = "auk_site"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+anyhow.workspace = true
+auk.workspace = true
+auk_plumage.workspace = true
+auk_ui.workspace = true
+clap = { workspace = true, features = ["derive"] }
+razorbill.workspace = true
+tokio = { workspace = true, features = ["full"] }
