@@ -1,0 +1,8 @@
+[package]
+name = "auk_ui"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+auk.workspace = true
+auk_plumage.workspace = true

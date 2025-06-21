@@ -4,6 +4,7 @@ members = ["crates/*"]
 
 [workspace.dependencies]
 auk = { version = "0.6.0", path = "crates/auk" }
+auk_plumage = { version = "0.1.0", path = "crates/auk_plumage" }
 derive_more = "0.99.18"
 indexmap = "2.1.0"
 indoc = "2.0.4"
