@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Added `Render` trait.
+- Added `html` and `text` conversion methods to `Element`.
 
 ## [0.6.0] - 2024-12-18
 
