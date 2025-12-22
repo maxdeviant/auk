@@ -20,8 +20,8 @@ impl WithChildren for Skeleton {
     }
 }
 
-impl Into<HtmlElement> for Skeleton {
-    fn into(self) -> HtmlElement {
+impl Render for Skeleton {
+    fn render(self) -> impl Into<HtmlElement> {
         html()
             .lang("en")
             .child(
