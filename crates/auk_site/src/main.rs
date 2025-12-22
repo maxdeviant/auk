@@ -29,6 +29,7 @@ async fn main() -> Result<()> {
         .base_url("http://localhost:3000")
         .title("Auk")
         .templates(index, section, page)
+        .add_page_template("auk_ui.button", templates::auk_ui::button)
         .add_page_template("auk_ui.stack", templates::auk_ui::stack)
         .with_sass("sass")
         .add_sass_load_path(auk_plumage::sass_load_path())
