@@ -48,8 +48,8 @@ impl WithChildren for Stack {
     }
 }
 
-impl Into<HtmlElement> for Stack {
-    fn into(self) -> HtmlElement {
+impl Render for Stack {
+    fn render(self) -> impl Into<Element> {
         div()
             .class(
                 class()

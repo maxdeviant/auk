@@ -10,9 +10,9 @@ impl Greeting {
     }
 }
 
-impl From<Greeting> for HtmlElement {
-    fn from(this: Greeting) -> Self {
-        div().child(h1().child(format!("Hello {}", this.name)))
+impl Render for Greeting {
+    fn render(self) -> impl Into<Element> {
+        div().child(h1().child(format!("Hello {}", self.name)))
     }
 }
 

@@ -6,7 +6,7 @@ mod table_of_contents;
 
 use std::collections::{HashMap, VecDeque};
 
-use auk::{Element, HtmlElement, TextElement, WithChildren};
+use auk::{Element, HtmlElement, Render as _, TextElement, WithChildren};
 use pulldown_cmark::{
     self as md, Alignment, CodeBlockKind, CowStr, Event, HeadingLevel, LinkType, Tag,
 };
@@ -83,7 +83,7 @@ where
                 }
                 Event::Text(text) => {
                     if let Some(element) = self.current_element_stack.iter_mut().last() {
-                        element.extend([text.to_string().into()]);
+                        element.extend([text.to_string().render().into()]);
                     }
                 }
                 Event::Code(text) => {
