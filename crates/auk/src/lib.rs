@@ -109,12 +109,6 @@ impl WithChildren for HtmlElement {
     }
 }
 
-impl Render for HtmlElement {
-    fn render(self) -> impl Into<Element> {
-        Element::Html(self)
-    }
-}
-
 /// A text element.
 #[derive(Debug, Clone)]
 pub struct TextElement {
@@ -152,12 +146,6 @@ impl TextElement {
 impl<T: Into<String>> From<T> for TextElement {
     fn from(value: T) -> Self {
         Self::new(value)
-    }
-}
-
-impl Render for TextElement {
-    fn render(self) -> impl Into<Element> {
-        Element::Text(self)
     }
 }
 
@@ -261,33 +249,21 @@ html_elements!(
     title, tr, track, u, ul, var, video, wbr, details, dialog, summary, slot, template
 );
 
-/// A trait for types that can be rendered as [`Element`]s.
+/// A trait for types that can be rendered as [`HtmlElement`]s.
 pub trait Render {
-    /// Renders this value into an [`Element`].
-    fn render(self) -> impl Into<Element>;
+    /// Renders this value into an [`HtmlElement`].
+    fn render(self) -> impl Into<HtmlElement>;
 }
 
-impl Render for String {
-    fn render(self) -> impl Into<Element> {
-        Element::Text(TextElement::from(self))
-    }
-}
-
-impl Render for &String {
-    fn render(self) -> impl Into<Element> {
-        Element::Text(TextElement::from(self.to_string()))
-    }
-}
-
-impl Render for &str {
-    fn render(self) -> impl Into<Element> {
-        Element::Text(TextElement::from(self.to_string()))
+impl<T: Render> From<T> for HtmlElement {
+    fn from(value: T) -> Self {
+        value.render().into()
     }
 }
 
 impl<T: Render> From<T> for Element {
     fn from(value: T) -> Self {
-        value.render().into()
+        Element::Html(value.render().into())
     }
 }
 

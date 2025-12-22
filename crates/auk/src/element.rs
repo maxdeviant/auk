@@ -27,3 +27,33 @@ impl Element {
         }
     }
 }
+
+impl From<TextElement> for Element {
+    fn from(value: TextElement) -> Self {
+        Self::Text(value)
+    }
+}
+
+impl From<String> for Element {
+    fn from(value: String) -> Self {
+        Self::Text(TextElement::from(value))
+    }
+}
+
+impl From<&String> for Element {
+    fn from(value: &String) -> Self {
+        Self::Text(TextElement::from(value))
+    }
+}
+
+impl From<&str> for Element {
+    fn from(value: &str) -> Self {
+        Self::Text(TextElement::from(value))
+    }
+}
+
+impl From<HtmlElement> for Element {
+    fn from(value: HtmlElement) -> Self {
+        Self::Html(value)
+    }
+}

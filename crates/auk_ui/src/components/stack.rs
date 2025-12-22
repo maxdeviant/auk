@@ -49,7 +49,7 @@ impl WithChildren for Stack {
 }
 
 impl Render for Stack {
-    fn render(self) -> impl Into<Element> {
+    fn render(self) -> impl Into<HtmlElement> {
         div()
             .class(
                 class()

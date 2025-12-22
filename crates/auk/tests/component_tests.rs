@@ -11,7 +11,7 @@ impl Greeting {
 }
 
 impl Render for Greeting {
-    fn render(self) -> impl Into<Element> {
+    fn render(self) -> impl Into<HtmlElement> {
         div().child(h1().child(format!("Hello {}", self.name)))
     }
 }
