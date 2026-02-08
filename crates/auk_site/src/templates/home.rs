@@ -6,18 +6,15 @@ use crate::components::Skeleton;
 pub fn home(_ctx: &RenderSectionContext) -> HtmlElement {
     Skeleton::new()
         .child(
-            body()
-                .class("home")
-                .child(div().class("home-container").child(header()))
-                .child(hero())
-                .child(
-                    div()
-                        .class("home-main-container")
-                        .child(features())
-                        .child(code_example())
-                        .child(ecosystem())
-                        .child(footer()),
-                ),
+            body().class("home").child(hero()).child(
+                div()
+                    .class("home-main-container")
+                    .child(header())
+                    .child(features())
+                    .child(code_example())
+                    .child(ecosystem())
+                    .child(footer()),
+            ),
         )
         .into()
 }

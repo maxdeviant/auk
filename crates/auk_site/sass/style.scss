@@ -32,6 +32,12 @@ body {
 
 .home {
   min-height: 100vh;
+  background: linear-gradient(
+    180deg,
+    var(--color-dark) 0%,
+    var(--color-dark-alt) 30%,
+    #0d0d0f 100%
+  );
 }
 
 .home-container {
@@ -53,6 +59,8 @@ body {
 
 .home-nav {
   padding: 1.5rem 2rem;
+  border-radius: 1.5rem 1.5rem 0 0;
+  background: var(--color-bg);
 }
 
 .home-nav-inner {
@@ -99,12 +107,6 @@ body {
   padding: 6rem 2rem;
   padding-bottom: calc(6rem + var(--container-overlap));
   text-align: center;
-  background: linear-gradient(
-    135deg,
-    var(--color-dark) 0%,
-    var(--color-dark-alt) 100%
-  );
-  position: relative;
 }
 
 .home-hero-content {
@@ -219,11 +221,11 @@ body {
 
 .home-code-example {
   padding: 4rem 2rem;
-  background: var(--color-dark);
+  background: var(--color-bg-alt);
 }
 
 .home-code-example .home-section-title {
-  color: var(--color-bg);
+  color: var(--color-dark);
 }
 
 .home-code-container {
@@ -246,16 +248,15 @@ body {
 }
 
 .home-code-block {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--color-dark);
   border-radius: 12px;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(8px);
+  border: 1px solid var(--color-dark-alt);
 }
 
 .home-code-header {
   padding: 0.75rem 1.25rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--color-dark-alt);
   color: var(--color-primary-light);
   font-size: 0.875rem;
   font-weight: 600;
@@ -367,6 +368,10 @@ body {
   }
 
   .home-main-container {
+    border-radius: 1rem 1rem 0 0;
+  }
+
+  .home-nav {
     border-radius: 1rem 1rem 0 0;
   }
 
