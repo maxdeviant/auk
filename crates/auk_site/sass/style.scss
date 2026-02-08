@@ -59,8 +59,10 @@ body {
 
 .home-nav {
   padding: 1.5rem 2rem;
-  border-radius: 1.5rem 1.5rem 0 0;
   background: var(--color-bg);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .home-nav-inner {
