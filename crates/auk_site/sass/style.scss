@@ -14,7 +14,7 @@
   --color-border: #e5e7eb;
   --font-mono:
     ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
-  --angle-height: 4rem;
+  --container-overlap: 3rem;
 }
 
 body {
@@ -37,6 +37,18 @@ body {
 .home-container {
   max-width: 1200px;
   margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.home-main-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-top: calc(-1 * var(--container-overlap));
+  background: var(--color-bg);
+  border-radius: 1.5rem 1.5rem 0 0;
+  box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.12);
+  position: relative;
+  z-index: 10;
 }
 
 .home-nav {
@@ -85,20 +97,14 @@ body {
 
 .home-hero {
   padding: 6rem 2rem;
-  padding-bottom: calc(6rem + var(--angle-height));
+  padding-bottom: calc(6rem + var(--container-overlap));
   text-align: center;
   background: linear-gradient(
-    180deg,
-    var(--color-bg) 0%,
-    var(--color-bg-alt) 100%
+    135deg,
+    var(--color-dark) 0%,
+    var(--color-dark-alt) 100%
   );
   position: relative;
-  clip-path: polygon(
-    0 0,
-    100% 0,
-    100% calc(100% - var(--angle-height)),
-    0 100%
-  );
 }
 
 .home-hero-content {
@@ -111,7 +117,7 @@ body {
   font-weight: 800;
   line-height: 1.1;
   margin: 0 0 1.5rem;
-  color: var(--color-dark);
+  color: var(--color-bg);
 }
 
 .home-hero-highlight {
@@ -120,7 +126,7 @@ body {
 
 .home-hero-subtitle {
   font-size: 1.25rem;
-  color: var(--color-text-muted);
+  color: #a1a1aa;
   margin: 0 0 2.5rem;
   max-width: 600px;
   margin-left: auto;
@@ -168,22 +174,8 @@ body {
 }
 
 .home-features {
-  padding: 5rem 2rem;
-  padding-top: calc(5rem + var(--angle-height));
-  margin-top: calc(-1 * var(--angle-height));
-  position: relative;
+  padding: 4rem 2rem;
   background: var(--color-bg);
-}
-
-.home-features::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: var(--angle-height);
-  background: var(--color-bg);
-  clip-path: polygon(0 0, 100% 100%, 0 100%);
 }
 
 .home-features-grid {
@@ -226,17 +218,8 @@ body {
 }
 
 .home-code-example {
-  padding: 5rem 2rem;
-  padding-top: calc(5rem + var(--angle-height));
-  padding-bottom: calc(5rem + var(--angle-height));
+  padding: 4rem 2rem;
   background: var(--color-dark);
-  position: relative;
-  clip-path: polygon(
-    0 var(--angle-height),
-    100% 0,
-    100% 100%,
-    0 calc(100% - var(--angle-height))
-  );
 }
 
 .home-code-example .home-section-title {
@@ -294,10 +277,7 @@ body {
 }
 
 .home-ecosystem {
-  padding: 5rem 2rem;
-  padding-top: calc(5rem + var(--angle-height));
-  margin-top: calc(-1 * var(--angle-height));
-  position: relative;
+  padding: 4rem 2rem;
   background: var(--color-bg);
 }
 
@@ -344,13 +324,10 @@ body {
 
 .home-footer {
   padding: 3rem 2rem;
-  padding-top: calc(3rem + var(--angle-height));
-  background: var(--color-dark);
-  color: #a1a1aa;
+  background: var(--color-bg-alt);
+  color: var(--color-text-muted);
   text-align: center;
-  position: relative;
-  clip-path: polygon(0 var(--angle-height), 100% 0, 100% 100%, 0 100%);
-  margin-top: calc(-1 * var(--angle-height));
+  border-top: 1px solid var(--color-border);
 }
 
 .home-footer-content {
@@ -371,22 +348,26 @@ body {
 }
 
 .home-footer-links a {
-  color: #a1a1aa;
+  color: var(--color-text-muted);
   text-decoration: none;
   transition: color 0.2s;
 }
 
 .home-footer-links a:hover {
-  color: var(--color-primary-light);
+  color: var(--color-primary);
 }
 
 .home-footer-separator {
-  color: #52525b;
+  color: var(--color-border);
 }
 
 @media (max-width: 768px) {
   :root {
-    --angle-height: 2.5rem;
+    --container-overlap: 2rem;
+  }
+
+  .home-main-container {
+    border-radius: 1rem 1rem 0 0;
   }
 
   .home-hero-title {

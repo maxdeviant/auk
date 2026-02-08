@@ -12,7 +12,7 @@ pub fn home(_ctx: &RenderSectionContext) -> HtmlElement {
                 .child(hero())
                 .child(
                     div()
-                        .class("home-container")
+                        .class("home-main-container")
                         .child(features())
                         .child(code_example())
                         .child(ecosystem())
