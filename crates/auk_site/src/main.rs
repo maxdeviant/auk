@@ -45,9 +45,7 @@ async fn main() -> Result<()> {
 }
 
 fn index(ctx: &RenderSectionContext) -> HtmlElement {
-    Skeleton::new()
-        .child(body().child(div().children(ctx.section.content.clone())))
-        .into()
+    templates::home::home(ctx)
 }
 
 fn section(ctx: &RenderSectionContext) -> HtmlElement {
