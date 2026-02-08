@@ -84,14 +84,37 @@ fn hero_code_example() -> HtmlElement {
                 .gap_4(),
         )
         .child(code_block(input))
-        .child(div().child("⬇️"))
+        .child(down_arrow_icon())
         .child(code_block(output))
+}
+
+fn down_arrow_icon() -> HtmlElement {
+    HtmlElement::new("svg")
+        .attr("xmlns", "http://www.w3.org/2000/svg")
+        .attr("width", "32")
+        .attr("height", "32")
+        .attr("viewBox", "0 0 24 24")
+        .attr("fill", "none")
+        .attr("stroke", "currentColor")
+        .attr("stroke-width", "2")
+        .attr("stroke-linecap", "round")
+        .attr("stroke-linejoin", "round")
+        .child(HtmlElement::new("path").attr("d", "M12 5v14"))
+        .child(HtmlElement::new("path").attr("d", "m19 12-7 7-7-7"))
 }
 
 fn code_block(source_code: String) -> HtmlElement {
     div()
-        .class(class().px_5().py_3().border_solid().border_px().rounded_2())
-        .style("border-color: var(--color-white); width: 48rem; height: 16rem;")
+        .class(
+            class()
+                .m_auto()
+                .px_5()
+                .py_3()
+                .border_solid()
+                .border_px()
+                .rounded_2(),
+        )
+        .style("border-color: var(--color-white); width: 48rem;")
         .child(pre().child(code().child(TextElement {
             text: source_code,
             safe: true,
