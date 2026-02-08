@@ -145,7 +145,7 @@ dependencies = [
 [[package]]
 name = "auk_markdown"
 version = "0.1.0"
-source = "git+https://github.com/maxdeviant/auk.git?rev=ecf9cfa7ac7435dacf52e9b0c41d9459d1863a68#ecf9cfa7ac7435dacf52e9b0c41d9459d1863a68"
+source = "git+https://github.com/maxdeviant/auk.git?rev=eaeb65fbb303bab08f3f643781eb36da777e8a46#eaeb65fbb303bab08f3f643781eb36da777e8a46"
 dependencies = [
  "auk",
  "derive_more",
@@ -523,6 +523,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e13624c2627564efccf4934284bdd98cbaa14e79b0b5a141218e507b3a823456"
 dependencies = [
  "percent-encoding",
+]
+
+[[package]]
+name = "fsevent-sys"
+version = "4.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "76ee7a02da4d231650c7cea31349b889be2f45ddb3ef3032d2ec8185f6313fd2"
+dependencies = [
+ "libc",
 ]
 
 [[package]]
@@ -1206,6 +1215,7 @@ checksum = "6205bd8bb1e454ad2e27422015fb5e4f2bcc7e08fa8f27058670d208324a4d2d"
 dependencies = [
  "bitflags 2.6.0",
  "filetime",
+ "fsevent-sys",
  "inotify",
  "kqueue",
  "libc",
@@ -1531,11 +1541,11 @@ dependencies = [
 [[package]]
 name = "razorbill"
 version = "0.1.0"
-source = "git+https://github.com/maxdeviant/razorbill?rev=093ec1c69cbbfdf107da536c284c6e5674ed2606#093ec1c69cbbfdf107da536c284c6e5674ed2606"
+source = "git+https://github.com/maxdeviant/razorbill?rev=861aa6c11d54f546af99aa2e9e56351f2ba5da2d#861aa6c11d54f546af99aa2e9e56351f2ba5da2d"
 dependencies = [
  "anyhow",
  "auk",
- "auk_markdown 0.1.0 (git+https://github.com/maxdeviant/auk.git?rev=ecf9cfa7ac7435dacf52e9b0c41d9459d1863a68)",
+ "auk_markdown 0.1.0 (git+https://github.com/maxdeviant/auk.git?rev=eaeb65fbb303bab08f3f643781eb36da777e8a46)",
  "chrono",
  "chrono-tz",
  "derive_more",

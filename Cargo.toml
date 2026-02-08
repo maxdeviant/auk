@@ -15,7 +15,7 @@ insta = "1.34.0"
 paste = "1.0.15"
 pulldown-cmark = { version = "0.9.3", default-features = false }
 pulldown-cmark-escape = "0.11.0"
-razorbill = { git = "https://github.com/maxdeviant/razorbill", rev = "093ec1c69cbbfdf107da536c284c6e5674ed2606" }
+razorbill = { git = "https://github.com/maxdeviant/razorbill", rev = "861aa6c11d54f546af99aa2e9e56351f2ba5da2d" }
 slug = "0.1.5"
 tokio = "1.45.1"
 walkdir = "2.5.0"
