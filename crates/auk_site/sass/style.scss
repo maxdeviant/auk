@@ -392,3 +392,221 @@ body {
     gap: 1rem;
   }
 }
+
+// Utility Classes
+
+// Text Colors
+.text-primary {
+  color: var(--color-primary);
+}
+
+.text-primary-light {
+  color: var(--color-primary-light);
+}
+
+.text-muted {
+  color: var(--color-text-muted);
+}
+
+.text-dark {
+  color: var(--color-dark);
+}
+
+.text-white {
+  color: white;
+}
+
+.text-light {
+  color: #a1a1aa;
+}
+
+// Background Colors
+.bg-primary {
+  background: var(--color-primary);
+}
+
+.bg-dark {
+  background: var(--color-dark);
+}
+
+.bg-alt {
+  background: var(--color-bg-alt);
+}
+
+.bg-white {
+  background: var(--color-bg);
+}
+
+// Border Colors
+.border-primary {
+  border-color: var(--color-primary);
+}
+
+.border-default {
+  border-color: var(--color-border);
+}
+
+// Border Radius
+.rounded-sm {
+  border-radius: 4px;
+}
+
+.rounded-md {
+  border-radius: 8px;
+}
+
+.rounded-lg {
+  border-radius: 12px;
+}
+
+.rounded-xl {
+  border-radius: 1rem;
+}
+
+// Font Weights
+.font-medium {
+  font-weight: 500;
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.font-extrabold {
+  font-weight: 800;
+}
+
+// Font Family
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+// Font Sizes
+.text-xs {
+  font-size: 0.75rem;
+}
+
+.text-sm {
+  font-size: 0.875rem;
+}
+
+.text-base {
+  font-size: 1rem;
+}
+
+.text-lg {
+  font-size: 1.125rem;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+}
+
+.text-2xl {
+  font-size: 2rem;
+}
+
+.text-3xl {
+  font-size: 2.5rem;
+}
+
+.text-4xl {
+  font-size: 3.5rem;
+}
+
+// Transitions
+.transition {
+  transition: all 0.2s;
+}
+
+.transition-colors {
+  transition:
+    color 0.2s,
+    background-color 0.2s,
+    border-color 0.2s;
+}
+
+.transition-transform {
+  transition: transform 0.2s;
+}
+
+.transition-all {
+  transition: all 0.2s;
+}
+
+// Shadows
+.shadow-sm {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.shadow-md {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.shadow-lg {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+// Hover Effects
+.hover-lift {
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
+.hover-text-primary {
+  transition: color 0.2s;
+
+  &:hover {
+    color: var(--color-primary);
+  }
+}
+
+.hover-border-primary {
+  transition: border-color 0.2s;
+
+  &:hover {
+    border-color: var(--color-primary);
+  }
+}
+
+.hover-bg-primary-dark {
+  transition: background-color 0.2s;
+
+  &:hover {
+    background: var(--color-primary-dark);
+  }
+}
+
+// Misc Utilities
+.min-h-screen {
+  min-height: 100vh;
+}
+
+.overflow-x-auto {
+  overflow-x: auto;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.whitespace-pre {
+  white-space: pre;
+}
+
+.no-underline {
+  text-decoration: none;
+}
+
+.block {
+  display: block;
+}

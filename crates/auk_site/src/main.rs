@@ -1,4 +1,5 @@
 mod components;
+mod style;
 mod templates;
 
 use anyhow::Result;
