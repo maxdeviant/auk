@@ -1,5 +1,8 @@
 @import "auk-plumage";
 
+@import "./syntax-highlighting/themes/_melange";
+@import "./syntax-highlighting/_arborium-base";
+
 :root {
   --color-white: #ffffff;
   --color-dark: #16161a;

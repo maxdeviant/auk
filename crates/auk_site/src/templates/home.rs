@@ -1,3 +1,4 @@
+use arborium::Highlighter;
 use auk::*;
 use razorbill::render::RenderSectionContext;
 
@@ -31,29 +32,69 @@ fn hero() -> HtmlElement {
                 .white()
                 .bg_dark()
                 .min_h_screen()
-                .text_center()
                 .mx_auto()
                 .px_3()
                 .py_6(),
         )
         .child(
-            h1().class(class().m_0().mb_5().font_serif().font_size_8().primary())
-                .child("auk"),
-        )
-        .child(
-            h2().class(class().m_0().font_size_6().font_weight_6().white())
-                .child("Write HTML in ")
-                .child(span().class(class().primary()).child("Rust")),
-        )
-        .child(
-            p().child("Auk is an ")
+            div()
+                .class(class().text_center())
                 .child(
-                    abbr()
-                        .title("embedded domain-specific language")
-                        .child("eDSL"),
+                    h1().class(class().m_0().mb_5().font_serif().font_size_8().primary())
+                        .child("auk"),
                 )
-                .child(" for writing HTML using standard Rust syntax."),
+                .child(
+                    h2().class(class().m_0().font_size_6().font_weight_6().white())
+                        .child("Write HTML in ")
+                        .child(span().class(class().primary()).child("Rust")),
+                )
+                .child(
+                    p().child("Auk is an ")
+                        .child(
+                            abbr()
+                                .title("embedded domain-specific language")
+                                .child("eDSL"),
+                        )
+                        .child(" for writing HTML using standard Rust syntax."),
+                ),
         )
+        .child(hero_code_example())
+}
+
+fn hero_code_example() -> HtmlElement {
+    let highlighter_config = arborium::Config {
+        html_format: arborium::HtmlFormat::CustomElements,
+        ..Default::default()
+    };
+    let mut highlighter = Highlighter::with_config(highlighter_config);
+
+    let input = highlighter
+        .highlight("rust", include_str!("../../code_snippets/hero.rs"))
+        .unwrap();
+    let output = highlighter
+        .highlight("html", include_str!("../../code_snippets/hero.html"))
+        .unwrap();
+
+    section()
+        .class(class().flex().items_center().justify_center())
+        .child(code_block(input))
+        .child(
+            div()
+                .class(class().p_4())
+                .style("flex-shrink: 1;")
+                .child("➡️"),
+        )
+        .child(code_block(output))
+}
+
+fn code_block(source_code: String) -> HtmlElement {
+    div()
+        .class(class().px_5().py_3().border_solid().border_px().rounded_2())
+        .style("border-color: var(--color-white);")
+        .child(pre().child(code().child(TextElement {
+            text: source_code,
+            safe: true,
+        })))
 }
 
 fn site_header() -> HtmlElement {
