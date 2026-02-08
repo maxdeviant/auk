@@ -76,21 +76,16 @@ fn hero_code_example() -> HtmlElement {
         .unwrap();
 
     section()
-        .class(class().flex().items_center().justify_center())
+        .class(class().flex().items_center().justify_center().gap_4())
         .child(code_block(input))
-        .child(
-            div()
-                .class(class().p_4())
-                .style("flex-shrink: 1;")
-                .child("➡️"),
-        )
+        .child(div().child("➡️"))
         .child(code_block(output))
 }
 
 fn code_block(source_code: String) -> HtmlElement {
     div()
         .class(class().px_5().py_3().border_solid().border_px().rounded_2())
-        .style("border-color: var(--color-white);")
+        .style("border-color: var(--color-white); width: 48rem; height: 16rem;")
         .child(pre().child(code().child(TextElement {
             text: source_code,
             safe: true,
