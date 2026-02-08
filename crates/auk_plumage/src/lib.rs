@@ -314,6 +314,10 @@ macro_rules! sizing {
         }
 
         $crate::responsive_style_methods! {
+            min_h_screen : "min-h-screen"
+        }
+
+        $crate::responsive_style_methods! {
             size_0 : "size-0",
             size_1 : "size-1",
             size_2 : "size-2",

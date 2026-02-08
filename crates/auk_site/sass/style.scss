@@ -1,1 +1,31 @@
 @import "auk-plumage";
+
+:root {
+  --color-white: #ffffff;
+  --color-dark: #16161a;
+  --color-primary: #e85d04;
+}
+
+.font-serif {
+  font-family: Georgia, serif;
+}
+
+.font-monospace {
+  font-family: Consolas, monaco, monospace;
+}
+
+.white {
+  color: var(--color-white);
+}
+
+.primary {
+  color: var(--color-primary);
+}
+
+.bg-white {
+  background-color: var(--color-white);
+}
+
+.bg-dark {
+  background-color: var(--color-dark);
+}
