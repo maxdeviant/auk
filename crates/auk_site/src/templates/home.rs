@@ -32,12 +32,27 @@ fn hero() -> HtmlElement {
                 .bg_dark()
                 .min_h_screen()
                 .text_center()
-                .mx_auto(),
+                .mx_auto()
+                .px_3()
+                .py_6(),
+        )
+        .child(
+            h1().class(class().m_0().mb_5().font_serif().font_size_8().primary())
+                .child("auk"),
         )
         .child(
             h2().class(class().m_0().font_size_6().font_weight_6().white())
                 .child("Write HTML in ")
                 .child(span().class(class().primary()).child("Rust")),
+        )
+        .child(
+            p().child("Auk is an ")
+                .child(
+                    abbr()
+                        .title("embedded domain-specific language")
+                        .child("eDSL"),
+                )
+                .child(" for writing HTML using standard Rust syntax."),
         )
 }
 
