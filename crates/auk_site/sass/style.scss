@@ -14,6 +14,7 @@
   --color-border: #e5e7eb;
   --font-mono:
     ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  --angle-height: 4rem;
 }
 
 body {
@@ -84,11 +85,19 @@ body {
 
 .home-hero {
   padding: 6rem 2rem;
+  padding-bottom: calc(6rem + var(--angle-height));
   text-align: center;
   background: linear-gradient(
     180deg,
     var(--color-bg) 0%,
     var(--color-bg-alt) 100%
+  );
+  position: relative;
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% calc(100% - var(--angle-height)),
+    0 100%
   );
 }
 
@@ -160,6 +169,21 @@ body {
 
 .home-features {
   padding: 5rem 2rem;
+  padding-top: calc(5rem + var(--angle-height));
+  margin-top: calc(-1 * var(--angle-height));
+  position: relative;
+  background: var(--color-bg);
+}
+
+.home-features::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: var(--angle-height);
+  background: var(--color-bg);
+  clip-path: polygon(0 0, 100% 100%, 0 100%);
 }
 
 .home-features-grid {
@@ -203,7 +227,20 @@ body {
 
 .home-code-example {
   padding: 5rem 2rem;
-  background: var(--color-bg-alt);
+  padding-top: calc(5rem + var(--angle-height));
+  padding-bottom: calc(5rem + var(--angle-height));
+  background: var(--color-dark);
+  position: relative;
+  clip-path: polygon(
+    0 var(--angle-height),
+    100% 0,
+    100% 100%,
+    0 calc(100% - var(--angle-height))
+  );
+}
+
+.home-code-example .home-section-title {
+  color: var(--color-bg);
 }
 
 .home-code-container {
@@ -226,15 +263,17 @@ body {
 }
 
 .home-code-block {
-  background: var(--color-dark);
+  background: rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
 }
 
 .home-code-header {
   padding: 0.75rem 1.25rem;
-  background: var(--color-dark-alt);
-  color: var(--color-text-muted);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--color-primary-light);
   font-size: 0.875rem;
   font-weight: 600;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -256,6 +295,10 @@ body {
 
 .home-ecosystem {
   padding: 5rem 2rem;
+  padding-top: calc(5rem + var(--angle-height));
+  margin-top: calc(-1 * var(--angle-height));
+  position: relative;
+  background: var(--color-bg);
 }
 
 .home-ecosystem-content {
@@ -301,9 +344,13 @@ body {
 
 .home-footer {
   padding: 3rem 2rem;
+  padding-top: calc(3rem + var(--angle-height));
   background: var(--color-dark);
   color: #a1a1aa;
   text-align: center;
+  position: relative;
+  clip-path: polygon(0 var(--angle-height), 100% 0, 100% 100%, 0 100%);
+  margin-top: calc(-1 * var(--angle-height));
 }
 
 .home-footer-content {
@@ -338,6 +385,10 @@ body {
 }
 
 @media (max-width: 768px) {
+  :root {
+    --angle-height: 2.5rem;
+  }
+
   .home-hero-title {
     font-size: 2.5rem;
   }
