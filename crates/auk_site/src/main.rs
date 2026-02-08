@@ -1,4 +1,5 @@
 mod components;
+mod style;
 mod templates;
 
 use anyhow::Result;
@@ -45,9 +46,7 @@ async fn main() -> Result<()> {
 }
 
 fn index(ctx: &RenderSectionContext) -> HtmlElement {
-    Skeleton::new()
-        .child(body().child(div().children(ctx.section.content.clone())))
-        .into()
+    templates::home(ctx)
 }
 
 fn section(ctx: &RenderSectionContext) -> HtmlElement {

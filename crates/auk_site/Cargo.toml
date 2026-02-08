@@ -11,3 +11,10 @@ auk_ui.workspace = true
 clap = { workspace = true, features = ["derive"] }
 razorbill.workspace = true
 tokio = { workspace = true, features = ["full"] }
+
+[dependencies.arborium]
+workspace = true
+features = [
+    "lang-html",
+    "lang-rust",
+]

@@ -4,6 +4,7 @@ members = ["crates/*"]
 
 [workspace.dependencies]
 anyhow = "1.0.98"
+arborium = "2.1"
 auk = { version = "0.6.0", path = "crates/auk" }
 auk_plumage = { version = "0.1.0", path = "crates/auk_plumage" }
 auk_ui = { version = "0.1.0", path = "crates/auk_ui" }

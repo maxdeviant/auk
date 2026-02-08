@@ -66,4 +66,8 @@
     width: auto;
     height: auto;
   }
+
+  .min-h-screen#{$suffix} {
+    min-height: 100vh;
+  }
 }

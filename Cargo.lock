@@ -116,6 +116,107 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e16d2d3311acee920a9eb8d33b8cbc1787ce4a264e85f964c2404b969bdcd487"
 
 [[package]]
+name = "arborium"
+version = "2.12.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "72c7786491956470ff732a5cc5271973c0d35f2dfdd1c6a89554ffc436cb7f7d"
+dependencies = [
+ "arborium-highlight",
+ "arborium-html",
+ "arborium-rust",
+ "arborium-theme",
+ "arborium-tree-sitter",
+ "dlmalloc",
+]
+
+[[package]]
+name = "arborium-css"
+version = "2.12.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4044f89d981077214cb1d35784c09617c11efefd8c1ec40b48b11984a639d429"
+dependencies = [
+ "arborium-sysroot",
+ "cc",
+ "tree-sitter-language",
+]
+
+[[package]]
+name = "arborium-highlight"
+version = "2.12.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "710007e055b8e84e6c1a13b5371a1dba3dcc4062aa97328dd5d5db12834b6b09"
+dependencies = [
+ "arborium-theme",
+ "arborium-tree-sitter",
+ "streaming-iterator",
+]
+
+[[package]]
+name = "arborium-html"
+version = "2.12.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "361ef4dd664d84b2c5b8028dd29a589635fe4bbe18965502f45f36520ae7a11a"
+dependencies = [
+ "arborium-css",
+ "arborium-javascript",
+ "arborium-sysroot",
+ "cc",
+ "tree-sitter-language",
+]
+
+[[package]]
+name = "arborium-javascript"
+version = "2.12.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "dc16c4b8f7d921667d95665add5cb08c5cd52e8fdbeacf8a66a57d3e0e0ce5b9"
+dependencies = [
+ "arborium-sysroot",
+ "cc",
+ "tree-sitter-language",
+]
+
+[[package]]
+name = "arborium-rust"
+version = "2.12.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7cb8f7807f24378b693a09243bc02f5433d038beaa3c2de8513e025de8e921b3"
+dependencies = [
+ "arborium-sysroot",
+ "cc",
+ "tree-sitter-language",
+]
+
+[[package]]
+name = "arborium-sysroot"
+version = "2.12.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0bb50cd4c0ca81b150c7febeda402defe3dbee3ed36adc547408b35067caf0c0"
+dependencies = [
+ "cc",
+ "dlmalloc",
+]
+
+[[package]]
+name = "arborium-theme"
+version = "2.12.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "59ab5a4ce30eab4ddbd778149c761007613d4a94f5bb55ffb716ba459e0e8f0b"
+
+[[package]]
+name = "arborium-tree-sitter"
+version = "2.12.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ddc35c735c83308af3eabb0c35103dd2dbcfc3bccf51d4660719843feb77707a"
+dependencies = [
+ "arborium-sysroot",
+ "cc",
+ "regex",
+ "regex-syntax",
+ "streaming-iterator",
+ "tree-sitter-language",
+]
+
+[[package]]
 name = "atomic-waker"
 version = "1.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -166,6 +267,7 @@ name = "auk_site"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "arborium",
  "auk",
  "auk_plumage",
  "auk_ui",
@@ -478,6 +580,17 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn",
+]
+
+[[package]]
+name = "dlmalloc"
+version = "0.2.12"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6738d2e996274e499bc7b0d693c858b7720b9cd2543a0643a3087e6cb0a4fa16"
+dependencies = [
+ "cfg-if 1.0.0",
+ "libc",
+ "windows-sys 0.59.0",
 ]
 
 [[package]]
@@ -1783,6 +1896,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a8f112729512f8e442d81f95a8a7ddf2b7c6b8a1a6f509a95864142b30cab2d3"
 
 [[package]]
+name = "streaming-iterator"
+version = "0.1.9"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2b2231b7c3057d5e4ad0156fb3dc807d900806020c5ffa3ee6ff2c8c76fb8520"
+
+[[package]]
 name = "strsim"
 version = "0.11.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1940,6 +2059,12 @@ checksum = "b9d12581f227e93f094d3af2ae690a574abb8a2b9b7a96e7cfe9647b2b617678"
 dependencies = [
  "once_cell",
 ]
+
+[[package]]
+name = "tree-sitter-language"
+version = "0.1.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "009994f150cc0cd50ff54917d5bc8bffe8cad10ca10d81c34da2ec421ae61782"
 
 [[package]]
 name = "try-lock"
