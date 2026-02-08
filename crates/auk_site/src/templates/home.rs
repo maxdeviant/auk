@@ -12,7 +12,6 @@ pub fn home(_ctx: &RenderSectionContext) -> HtmlElement {
         .child(
             div()
                 .class(class().m_auto().max_w_7().bg_white())
-                .style("margin-top: -16rem;")
                 .child(site_header())
                 .child(p().child("Lorem ipsum"))
                 .child(p().child("Lorem ipsum"))
@@ -76,9 +75,16 @@ fn hero_code_example() -> HtmlElement {
         .unwrap();
 
     section()
-        .class(class().flex().items_center().justify_center().gap_4())
+        .class(
+            class()
+                .flex()
+                .flex_col()
+                .items_center()
+                .justify_center()
+                .gap_4(),
+        )
         .child(code_block(input))
-        .child(div().child("➡️"))
+        .child(div().child("⬇️"))
         .child(code_block(output))
 }
 
