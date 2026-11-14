@@ -14,6 +14,16 @@ use pulldown_cmark::{
 pub use crate::markdown_components::*;
 pub use crate::table_of_contents::*;
 
+/// Options for rendering Markdown.
+#[derive(Debug, Clone, Default)]
+pub struct MarkdownOptions {
+    /// Whether to enable smart punctuation.
+    ///
+    /// When enabled, straight quotes are converted to curly quotes, `--` and `---`
+    /// to en and em dashes, and `...` to an ellipsis.
+    pub smart_punctuation: bool,
+}
+
 /// Renders the provided Markdown text into [`Element`]s and its [`TableOfContents`].
 ///
 /// Uses the provided [`MarkdownComponents`] to render specific Markdown elements.
@@ -21,12 +31,28 @@ pub fn render_markdown(
     text: &str,
     components: &Box<dyn MarkdownComponents>,
 ) -> (Vec<Element>, TableOfContents) {
+    render_markdown_with_options(text, components, &MarkdownOptions::default())
+}
+
+/// Renders the provided Markdown text into [`Element`]s and its [`TableOfContents`],
+/// using the provided [`MarkdownOptions`].
+///
+/// Uses the provided [`MarkdownComponents`] to render specific Markdown elements.
+pub fn render_markdown_with_options(
+    text: &str,
+    components: &Box<dyn MarkdownComponents>,
+    markdown_options: &MarkdownOptions,
+) -> (Vec<Element>, TableOfContents) {
     let mut options = md::Options::empty();
     options.insert(md::Options::ENABLE_TABLES);
     options.insert(md::Options::ENABLE_FOOTNOTES);
     options.insert(md::Options::ENABLE_STRIKETHROUGH);
     options.insert(md::Options::ENABLE_TASKLISTS);
     options.insert(md::Options::ENABLE_HEADING_ATTRIBUTES);
+
+    if markdown_options.smart_punctuation {
+        options.insert(md::Options::ENABLE_SMART_PUNCTUATION);
+    }
 
     let parser = md::Parser::new_ext(text, options);
 
@@ -352,8 +378,12 @@ mod tests {
     use super::*;
 
     fn parse_and_render_markdown(text: &str) -> String {
+        parse_and_render_markdown_with_options(text, &MarkdownOptions::default())
+    }
+
+    fn parse_and_render_markdown_with_options(text: &str, options: &MarkdownOptions) -> String {
         let (elements, _table_of_contents) =
-            render_markdown(text, &DefaultMarkdownComponents.boxed());
+            render_markdown_with_options(text, &DefaultMarkdownComponents.boxed(), options);
 
         elements
             .into_iter()
@@ -429,6 +459,21 @@ mod tests {
         "};
 
         insta::assert_yaml_snapshot!(parse_and_render_markdown(text));
+    }
+
+    #[test]
+    fn test_markdown_smart_punctuation() {
+        let text = indoc! {r#"
+            "Hello," she said. 'It's a nice day -- isn't it?'
+
+            Wait for it... --- there it is.
+        "#};
+
+        let options = MarkdownOptions {
+            smart_punctuation: true,
+        };
+
+        insta::assert_yaml_snapshot!(parse_and_render_markdown_with_options(text, &options));
     }
 
     #[test]

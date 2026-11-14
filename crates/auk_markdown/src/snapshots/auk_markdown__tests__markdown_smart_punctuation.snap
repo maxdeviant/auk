@@ -1,0 +1,6 @@
+---
+source: crates/auk_markdown/src/lib.rs
+expression: "parse_and_render_markdown_with_options(text, &options)"
+---
+"<p>“Hello,” she said. ‘It’s a nice day – isn’t it?’</p><p>Wait for it… — there it is.</p>"
+
